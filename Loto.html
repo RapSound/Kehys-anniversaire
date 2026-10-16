@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title> Joyeux Anniversaire Kehys</title>
+<script src="https://cdn.jsdelivr.net/npm/tailwindcss@4.1.17/dist/lib.min.js"></script>
+<style>
+  html,body{margin:0;padding:0;min-height:100%;background:#060a14;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:#fff;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(ellipse at top,rgba(37,68,150,.35),transparent 55%),radial-gradient(ellipse at bottom,rgba(249,115,22,.14),transparent 55%);}
+  body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.13;
+    background-image:linear-gradient(rgba(255,255,255,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.15) 1px,transparent 1px);
+    background-size:56px 56px;}
+
+  #confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9999;}
+  .confetti-piece{position:absolute;top:-12vh;border-radius:2px;animation-name:fall;animation-timing-function:linear;animation-fill-mode:forwards;}
+  @keyframes fall{to{transform:translateY(125vh) rotate(760deg);opacity:0;}}
+
+  .screen{position:fixed;inset:0;z-index:100;display:none;padding:24px 16px;overflow-y:auto;}
+  .screen.active{display:flex;align-items:center;justify-content:center;animation:fadeIn .5s ease both;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  #s-game{padding:0;pointer-events:none;overflow:hidden;}
+  #s-game.active{display:block;}
+
+  .panel{width:100%;max-width:620px;background:rgba(13,21,38,.88);border:1px solid rgba(255,255,255,.12);
+    border-radius:28px;padding:28px 22px;backdrop-filter:blur(20px);box-shadow:0 24px 60px rgba(0,0,0,.55);margin:auto;}
+  h1,h2,h3{margin:0;line-height:1.15;}
+  h1{font-size:clamp(1.8rem,7vw,3rem);font-weight:900;}
+  h2{font-size:clamp(1.25rem,5vw,1.85rem);font-weight:900;}
+  h3{font-size:clamp(1.05rem,4vw,1.35rem);font-weight:900;}
+
+  .step-label{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#fb923c;font-weight:800;margin-bottom:10px;}
+  .sub{color:#cbd5e1;font-size:14px;line-height:1.55;margin-top:8px;}
+  .sub b{color:#fff;}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;
+    color:#fff;font-family:inherit;font-weight:900;font-size:15px;letter-spacing:.04em;
+    padding:14px 28px;border-radius:999px;background:linear-gradient(135deg,#fb923c,#ea580c);
+    box-shadow:0 12px 30px rgba(249,115,22,.35);transition:transform .18s,box-shadow .18s,opacity .2s;}
+  .btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 16px 40px rgba(249,115,22,.5);}
+  .btn:active{transform:scale(.96);}
+  .btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none;}
+  .btn.full{width:100%;}
+  .btn.big{font-size:17px;padding:16px 32px;}
+
+  .field{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);
+    border-radius:16px;padding:14px 16px;color:#fff;font-family:inherit;font-size:15px;
+    outline:none;transition:.2s;}
+  .field::placeholder{color:#64748b;}
+  .field:focus{border-color:#fb923c;background:rgba(251,146,60,.1);box-shadow:0 0 0 4px rgba(249,115,22,.14);}
+  .field.err{border-color:#ef4444;background:rgba(239,68,68,.1);animation:shake .35s;}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+  textarea.field{resize:none;font-family:inherit;}
+
+  .err-msg{color:#fca5a5;font-size:13px;margin-top:10px;padding:10px 14px;border-radius:12px;
+    background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);display:none;}
+  .err-msg.show{display:block;}
+
+  .ball-wrap{display:inline-block;animation:bounceY 1.3s ease-in-out infinite;}
+  @keyframes bounceY{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+  .ball-3d{width:100px;height:100px;border-radius:50%;display:inline-block;position:relative;overflow:hidden;
+    background:radial-gradient(circle at 32% 28%,#ffb37a,#f97316 42%,#c2410c 78%,#7c2d12);
+    box-shadow:inset -12px -16px 30px rgba(0,0,0,.45),inset 6px 8px 20px rgba(255,255,255,.25),0 20px 34px rgba(0,0,0,.5);
+    animation:spinY 8s linear infinite;}
+  .ball-3d::before,.ball-3d::after{content:'';position:absolute;background:#431407;}
+  .ball-3d::before{left:50%;top:0;width:3px;height:100%;transform:translateX(-50%);}
+  .ball-3d::after{top:50%;left:0;width:100%;height:3px;transform:translateY(-50%);}
+  .ball-3d .curve-l,.ball-3d .curve-r{position:absolute;top:0;height:100%;width:62%;border:3px solid #431407;border-radius:50%;}
+  .ball-3d .curve-l{left:-38%;}
+  .ball-3d .curve-r{right:-38%;}
+  @keyframes spinY{to{transform:rotate(360deg);}}
+
+  .title-letters{display:inline-block;}
+  .title-letters span{display:inline-block;
+    background:linear-gradient(180deg,#fff,#fdba74 60%,#ea580c);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    font-weight:900;font-size:clamp(3rem,15vw,6rem);line-height:1;
+    filter:drop-shadow(0 10px 22px rgba(249,115,22,.4));
+    opacity:0;transform:translateY(46px) rotateX(90deg) scale(.6);
+    animation:letterPop .7s cubic-bezier(.2,1.6,.4,1) forwards;}
+  @keyframes letterPop{to{opacity:1;transform:none;}}
+
+  .quality-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;}
+  .quality-chip{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+    opacity:0;transform:scale(.85) translateY(16px);
+    animation:chipIn .55s cubic-bezier(.2,1.5,.4,1) forwards;}
+  .quality-chip:last-child{grid-column:span 2;
+    background:linear-gradient(90deg,rgba(249,115,22,.25),rgba(251,191,36,.15));
+    border-color:rgba(251,146,60,.4);}
+  @keyframes chipIn{to{opacity:1;transform:none;}}
+  .quality-num{display:flex;align-items:center;justify-content:center;width:34px;height:34px;
+    border-radius:10px;flex-shrink:0;background:rgba(249,115,22,.2);color:#fdba74;
+    font-weight:900;font-size:14px;}
+  .quality-text{font-weight:700;font-size:15px;}
+  .strike{text-decoration:line-through;text-decoration-thickness:2px;opacity:.55;}
+  .magnif{color:#fde047;font-weight:900;letter-spacing:.04em;}
+
+  .rating-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:16px 0;}
+  @media(min-width:500px){.rating-grid{grid-template-columns:repeat(10,1fr);}}
+  .rating-btn{aspect-ratio:1;border-radius:14px;border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.06);color:#e2e8f0;font-family:inherit;font-weight:900;
+    font-size:17px;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;}
+  .rating-btn:hover{background:rgba(255,255,255,.14);transform:translateY(-2px);}
+  .rating-btn.active{background:linear-gradient(135deg,#fb923c,#ea580c);color:#fff;
+    transform:scale(1.1);border-color:transparent;box-shadow:0 8px 22px rgba(249,115,22,.5);}
+
+  .recap{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;
+    padding:16px;margin-top:18px;text-align:left;}
+  .recap h3{color:#fdba74;display:flex;align-items:center;gap:8px;font-size:15px;}
+  .recap ul{list-style:none;padding:0;margin:12px 0 0;}
+  .recap li{padding:8px 0;font-size:14px;color:#e2e8f0;line-height:1.5;border-bottom:1px dashed rgba(255,255,255,.08);}
+  .recap li:last-child{border-bottom:none;}
+  .recap li b{color:#fff;}
+
+  .shine{background:linear-gradient(90deg,#fb923c,#fde047,#fb923c);background-size:220% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 3s linear infinite;font-weight:900;}
+  @keyframes shine{to{background-position:220% 0;}}
+
+  .birthday-big{font-size:clamp(2.6rem,13vw,5rem);font-weight:900;line-height:.95;
+    background:linear-gradient(180deg,#fff,#fbbf24 55%,#f97316);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 10px 26px rgba(251,191,36,.5));}
+  .birthday-line{font-size:clamp(1.1rem,5vw,1.9rem);font-weight:900;letter-spacing:.1em;color:#fde047;}
+
+  .anim-up{opacity:0;transform:translateY(26px) scale(.85);animation:popUp .75s cubic-bezier(.2,1.5,.4,1) forwards;}
+  @keyframes popUp{to{opacity:1;transform:none;}}
+
+  .stat-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.1);font-size:14px;}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-row b{font-weight:900;}
+
+  .result-box{border-radius:18px;padding:18px;margin-top:16px;border:1px solid;text-align:center;
+    background:rgba(249,115,22,.1);border-color:rgba(251,146,60,.35);}
+
+  .center{text-align:center;}
+  .mt-1{margin-top:8px;}.mt-2{margin-top:14px;}.mt-3{margin-top:20px;}.mt-4{margin-top:26px;}
+  .text-xl{font-size:1.3rem;}.text-2xl{font-size:1.7rem;}.text-3xl{font-size:2rem;}.text-4xl{font-size:2.5rem;}
+  .text-sm{font-size:13px;}.text-xs{font-size:11px;}
+  .font-black{font-weight:900;}.font-bold{font-weight:700;}
+  .text-slate-300{color:#cbd5e1;}.text-slate-400{color:#94a3b8;}.text-slate-500{color:#64748b;}
+  .text-orange-300{color:#fdba74;}.text-orange-400{color:#fb923c;}.text-amber-300{color:#fcd34d;}
+  .text-yellow-300{color:#fde047;}.text-emerald-300{color:#86efac;}
+
+  /* JEU 3D */
+  #c { position:fixed; inset:0; display:none; width:100%; height:100%; touch-action:none; cursor:crosshair; z-index:50; }
+  #c.playing { display:block; }
+
+  #gameHud { position:fixed; inset:0 0 auto 0; padding:12px; display:flex; justify-content:space-between;
+    align-items:flex-start; pointer-events:none; user-select:none; z-index:200; }
+  .hud-card { background:rgba(10,14,30,.6); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.14);
+    border-radius:16px; padding:8px 16px; text-align:center; min-width:80px; }
+  .hud-lbl { font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#fb923c; font-weight:800; }
+  .hud-val { font-size:1.6rem; font-weight:900; line-height:1; font-variant-numeric:tabular-nums; }
+  .hud-val small { font-size:.55em; color:#94a3b8; }
+
+  #power { position:fixed; right:14px; top:50%; transform:translateY(-50%); width:16px; height:190px;
+    border-radius:999px; background:rgba(10,14,30,.55); backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.12); overflow:hidden; display:none; flex-direction:column-reverse; z-index:200; }
+  #powerFill { width:100%; height:0%; background:linear-gradient(to top,#34d399,#fbbf24,#ef4444); transition:height .05s linear; }
+
+  #hint { position:fixed; bottom:20px; left:0; right:0; text-align:center; color:rgba(255,255,255,.85);
+    font-size:13px; pointer-events:none; z-index:200; }
+  #hint span { background:rgba(10,14,30,.6); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.12);
+    border-radius:999px; padding:9px 18px; display:inline-block; }
+
+  #popup { position:fixed; left:50%; top:32%; transform:translate(-50%,-50%) scale(.6); opacity:0;
+    pointer-events:none; z-index:500; font-weight:900; font-size:clamp(1.6rem,6.5vw,3rem);
+    letter-spacing:.02em; text-shadow:0 6px 26px rgba(0,0,0,.7); white-space:nowrap; }
+  #popup.show { animation: pop 1.1s ease-out forwards; }
+  @keyframes pop { 0%{opacity:0;transform:translate(-50%,-50%) scale(.5)} 15%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}
+    30%{transform:translate(-50%,-50%) scale(1)} 80%{opacity:1} 100%{opacity:0;transform:translate(-50%,-80%) scale(1)} }
+  .fire { animation: fire .6s infinite alternate; }
+  @keyframes fire { from{ text-shadow:0 0 6px #f97316 } to { text-shadow:0 0 18px #ef4444, 0 0 30px #f97316 } }
+
+  #modeControls { position:fixed; bottom:12px; left:12px; z-index:200; display:none;
+    flex-direction:column; align-items:flex-start; gap:8px;
+    pointer-events:auto; }
+  #modeControls.show { display:flex; }
+  #guideStatus { font-size:13px; font-weight:600; text-shadow:0 2px 8px rgba(0,0,0,.8);
+    pointer-events:none; }
+  #modeToggle { background:rgba(10,14,30,.6); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.14);
+    border-radius:999px; padding:9px 16px; color:#fff; font-size:13px; font-weight:700; cursor:pointer; user-select:none;
+    font-family:inherit; pointer-events:auto; transition:background .15s, transform .15s; }
+  #modeToggle:hover { background:rgba(10,14,30,.9); }
+  #modeToggle:active { transform:scale(.95); }
+
+  /*  Bouton "Passer" en bas à droite */
+  #skipControls { position:fixed; bottom:12px; right:12px; z-index:200; display:none; pointer-events:auto; }
+  #skipControls.show { display:block; }
+  #skipBtn { background:rgba(10,14,30,.75); backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:10px 18px;
+    color:#fde047; font-size:13px; font-weight:800; cursor:pointer; user-select:none;
+    font-family:inherit; pointer-events:auto; transition:background .15s, transform .15s;
+    display:inline-flex; align-items:center; gap:6px; letter-spacing:.04em; }
+  #skipBtn:hover { background:rgba(10,14,30,.95); transform:translateY(-1px); }
+  #skipBtn:active { transform:scale(.95); }
+
+  .progress-dots { position:fixed; bottom:60px; left:0; right:0; display:none; gap:6px; justify-content:center; z-index:200; pointer-events:none; }
+  .progress-dots.show { display:flex; }
+  .pdot { height:10px; width:10px; border-radius:999px; background:rgba(255,255,255,.2); transition:all .4s; }
+  .pdot.done { width:32px; background:#f97316; }
+
+  @media(max-width:480px){.panel{padding:22px 16px;}.btn{padding:13px 22px;font-size:14px;}
+    .quality-list{grid-template-columns:1fr;}.quality-chip:last-child{grid-column:span 1;}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="confetti"></div>
+<div id="popup"></div>
+
+<!-- ========== 1 · INTRO ========== -->
+<section id="s-intro" class="screen active">
+  <div class="panel center">
+    <div class="ball-wrap"><div class="ball-3d"><div class="curve-l"></div><div class="curve-r"></div></div></div>
+    <p class="step-label mt-3"> Une surprise t'attend </p>
+    <div id="introTitle" class="title-letters"></div>
+    <p class="sub mt-2" style="max-width:400px;margin-left:auto;margin-right:auto;">
+      Suis le guide, tout se révèle au fur et à mesure.
+    </p>
+    <button class="btn big mt-3" onclick="goTo('s-birthday')"> COMMENCER</button>
+    <p class="text-xs text-slate-500 mt-3"> Active le son · Jouable au doigt ou à la souris</p>
+  </div>
+</section>
+
+<!-- ========== 2 · BIRTHDAY 1 ========== -->
+<section id="s-birthday" class="screen">
+  <div class="panel center">
+    <div class="ball-wrap"><div class="ball-3d"><div class="curve-l"></div><div class="curve-r"></div></div></div>
+    <div class="birthday-line anim-up mt-3" style="animation-delay:.2s"> JOYEUX </div>
+    <div class="birthday-line anim-up" style="animation-delay:.5s">ANNIVERSAIRE</div>
+    <div class="birthday-big anim-up" style="animation-delay:.9s">KEHYS</div>
+    <div class="anim-up mt-2" style="animation-delay:1.3s;">
+      <div class="text-3xl font-black">13 <span class="text-sm text-orange-300" style="letter-spacing:.2em">ANS</span></div>
+    </div>
+    <p class="sub anim-up" style="animation-delay:1.7s;">
+      Aujourd'hui tu as 13 ans...<br><b class="text-yellow-300">Allez, un an de plus !</b> 
+    </p>
+    <button class="btn anim-up mt-3" style="animation-delay:2.1s;" onclick="goTo('s-wish')">CONTINUER</button>
+  </div>
+</section>
+
+<!-- ========== 3 · WISH ========== -->
+<section id="s-wish" class="screen">
+  <div class="panel">
+    <p class="step-label">Étape 1 / 5 · Le défi personnel</p>
+    <h2>Cette année, qu'est-ce que tu aimerais <span class="shine">changer</span> ou améliorer chez toi ? </h2>
+    <p class="sub">Une seule réponse suffit.</p>
+    <textarea id="wishInput" class="field mt-2" rows="4" maxlength="300" placeholder="Ex : être plus patient, ranger ma chambre (parfois)…"></textarea>
+    <div class="text-xs text-slate-500 mt-1" style="display:flex;justify-content:space-between;">
+      <span id="wishCount">0</span><span>max 300</span>
+    </div>
+    <p id="wishErr" class="err-msg"></p>
+    <button class="btn full mt-2" onclick="validateWish()">Valider ma réponse </button>
+  </div>
+</section>
+
+<!-- ========== 4 · QUALITIES ========== -->
+<section id="s-qualities" class="screen">
+  <div class="panel">
+    <p class="step-label">Étape 2 / 5 · Tes super-pouvoirs</p>
+    <h2 class="center">13 ans, 13 qualités ! </h2>
+    <p class="sub center">Elles arrivent une par une…</p>
+    <div id="qualityList" class="quality-list"></div>
+    <button id="qualBtn" class="btn full" style="display:none;" onclick="goTo('s-flaws')">Continuer </button>
+  </div>
+</section>
+
+<!-- ========== 5 · FLAWS ========== -->
+<section id="s-flaws" class="screen">
+  <div class="panel">
+    <p class="step-label">Étape 3 / 5 · Moment vérité</p>
+    <h2>Bon, maintenant, tes 3 principaux <span class="shine">défauts</span>… </h2>
+    <p class="sub">Aller assume maintenant </p>
+    <div class="mt-2" style="display:flex;flex-direction:column;gap:10px;">
+      <input id="flaw1" class="field" maxlength="60" placeholder="Défaut n°1">
+      <input id="flaw2" class="field" maxlength="60" placeholder="Défaut n°2">
+      <input id="flaw3" class="field" maxlength="60" placeholder="Défaut n°3">
+    </div>
+    <p id="flawErr" class="err-msg"></p>
+    <button class="btn full mt-2" onclick="validateFlaws()">J'assume </button>
+  </div>
+</section>
+
+<!-- ========== 6 · BEHAVIOR ========== -->
+<section id="s-behavior" class="screen">
+  <div class="panel">
+    <p class="step-label">Étape 4 / 5 · Auto-évaluation</p>
+    <h2>Comment notes-tu ton <span class="shine">comportement</span> en moyenne ? </h2>
+    <p class="sub">Sois honnête… personne ne regarde.</p>
+    <div id="behGrid" class="rating-grid"></div>
+    <div class="text-sm text-slate-300" style="display:flex;justify-content:space-between;">
+      <span>1 · Il y a du travail !</span><span>10 · Presque parfait !</span>
+    </div>
+    <button id="behBtn" class="btn full mt-3" disabled onclick="goTo('s-basket')">Valider ma note </button>
+  </div>
+</section>
+
+<!-- ========== 7 · BASKET LEVEL ========== -->
+<section id="s-basket" class="screen">
+  <div class="panel">
+    <p class="step-label">Étape 5 / 5 · Niveau basket</p>
+    <h2>Et au basket, tu te trouves comment ? </h2>
+    <p class="sub">Choisis ton mode et lance-toi.</p>
+    <div id="bskGrid" class="rating-grid"></div>
+    <div class="text-sm text-slate-300" style="display:flex;justify-content:space-between;">
+      <span>1 · Je débute</span><span>10 · Future star NBA</span>
+    </div>
+
+    <div class="mt-3" style="text-align:left;">
+      <div class="text-xs" style="letter-spacing:.2em;text-transform:uppercase;color:#94a3b8;font-weight:800;margin-bottom:8px;">Choisis ton mode de départ</div>
+      <div style="display:flex;gap:8px;" role="group" aria-label="Mode de jeu">
+        <button type="button" class="mode-option active" data-mode="guided" aria-pressed="true"
+          style="flex:1;border-radius:14px;padding:12px;text-align:left;cursor:pointer;font-family:inherit;color:#fff;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);transition:.2s;">
+          <span style="display:block;font-weight:800;font-size:13px;">Mode guidé</span>
+          <span style="display:block;color:#cbd5e1;font-size:11px;margin-top:2px;">Trajectoire et rebonds</span>
+        </button>
+        <button type="button" class="mode-option" data-mode="normal" aria-pressed="false"
+          style="flex:1;border-radius:14px;padding:12px;text-align:left;cursor:pointer;font-family:inherit;color:#fff;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);transition:.2s;">
+          <span style="display:block;font-weight:800;font-size:13px;">Mode normal</span>
+          <span style="display:block;color:#cbd5e1;font-size:11px;margin-top:2px;">Tir à l'instinct</span>
+        </button>
+      </div>
+      <p id="modeDescription" class="text-xs text-slate-400 mt-2">Bleu : vol • orange : rebond • vert : panier. Visualise le tir avant de lâcher.<br>Tu pourras changer de mode <b>à tout moment</b> pendant la partie (bouton en bas à gauche ou touche G).</p>
+    </div>
+
+    <button id="bskBtn" class="btn full mt-3" disabled onclick="startBasketGame()"> LANCER LE DÉFI</button>
+  </div>
+</section>
+
+<!-- ========== 8 · GAME ========== -->
+<section id="s-game" class="screen">
+  <div id="gameHud">
+    <div class="hud-card">
+      <div class="hud-lbl">Paniers</div>
+      <div class="hud-val"><span id="hudMade">0</span><small>/13</small></div>
+    </div>
+    <div class="hud-card">
+      <div class="hud-lbl">Chrono</div>
+      <div class="hud-val" id="hudTime">0.0</div>
+    </div>
+    <div class="hud-card">
+      <div class="hud-lbl">Série</div>
+      <div class="hud-val" id="hudStreak">0</div>
+    </div>
+  </div>
+  <div id="power"><div id="powerFill"></div></div>
+  <div id="hint"><span> Glisse vers le haut pour tirer · gauche/droite pour viser</span></div>
+  <div id="modeControls">
+    <div id="guideStatus"></div>
+    <button id="modeToggle" type="button" aria-label="Changer de mode de jeu (touche G)" aria-pressed="true">Mode guidé : activé</button>
+  </div>
+  <div id="skipControls">
+    <button id="skipBtn" type="button" aria-label="Passer le jeu et continuer"> Passer le jeu</button>
+  </div>
+  <div class="progress-dots" id="dotsRow"></div>
+</section>
+
+<!-- ========== 9 · RESULT ========== -->
+<section id="s-result" class="screen">
+  <div class="panel center">
+    <div id="resEmoji" class="text-4xl"></div>
+    <h2 id="resTitle" class="mt-1">DÉFI TERMINÉ !</h2>
+    <p class="sub" id="resSub"></p>
+    <div class="mt-3" style="text-align:left;">
+      <div class="stat-row"><span> Temps total</span><b id="resReal">—</b></div>
+      <div class="stat-row"><span> Tirs tentés</span><b id="resShots">—</b></div>
+      <div class="stat-row"><span> Paniers marqués</span><b id="resMade">—</b></div>
+      <div class="stat-row"><span> Réussite</span><b id="resAcc">—</b></div>
+    </div>
+    <div id="resBox" class="result-box"></div>
+    <button class="btn mt-3" onclick="goTo('s-birthday2')">Continuer la fête </button>
+  </div>
+</section>
+
+<!-- ========== 10 · BIRTHDAY 2 ========== -->
+<section id="s-birthday2" class="screen">
+  <div class="panel center">
+    <div style="display:flex;justify-content:center;align-items:flex-end;gap:16px;">
+      <div class="ball-wrap" style="animation-delay:-.4s;"><div class="ball-3d" style="width:76px;height:76px;"><div class="curve-l"></div><div class="curve-r"></div></div></div>
+      <div class="ball-wrap"><div class="ball-3d"><div class="curve-l"></div><div class="curve-r"></div></div></div>
+      <div class="ball-wrap" style="animation-delay:-.8s;"><div class="ball-3d" style="width:76px;height:76px;"><div class="curve-l"></div><div class="curve-r"></div></div></div>
+    </div>
+    <div class="birthday-line mt-3">JOYEUX ANNIVERSAIRE</div>
+    <div class="birthday-big">KEHYS !</div>
+    <p class="sub mt-2">
+      Tu viens de relever le défi comme un vrai champion .<br>
+      Que cette année à 13 ans soit remplie de rires, de réussite et de moments inoubliables.
+    </p>
+    <button class="btn big mt-3" onclick="goTo('s-final')"> Voir le récapitulatif</button>
+  </div>
+</section>
+
+<!-- ========== 11 · FINAL ========== -->
+<section id="s-final" class="screen">
+  <div class="panel center">
+    <div class="ball-wrap"><div class="ball-3d"><div class="curve-l"></div><div class="curve-r"></div></div></div>
+    <div class="birthday-line anim-up mt-3" style="animation-delay:.2s;"> JOYEUX ANNIVERSAIRE </div>
+    <div class="birthday-big anim-up" style="animation-delay:.6s;">KEHYS</div>
+    <div class="anim-up mt-1" style="animation-delay:1s;">
+      <div class="text-3xl font-black">13 <span class="text-sm text-orange-300" style="letter-spacing:.2em">ANS</span></div>
+    </div>
+    <p class="sub anim-up" style="animation-delay:1.4s;">
+      Que cette nouvelle année t'apporte des paniers décisifs,<br>des fous rires inoubliables et plein de moments fiers.
+    </p>
+    <div id="finalRecap" class="recap anim-up" style="animation-delay:1.8s;">
+      <h3> Ton récap de champion</h3>
+      <ul id="finalList"></ul>
+    </div>
+    <button class="btn anim-up mt-3" style="animation-delay:2.2s;" onclick="downloadRecap()"> Télécharger mon récapitulatif</button>
+    <button class="btn anim-up mt-2" style="animation-delay:2.4s;background:rgba(255,255,255,.1);box-shadow:none;" onclick="location.reload()"> Recommencer l'expérience</button>
+  </div>
+</section>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+/* ============================================================
+   GLOBAL + NAVIGATION
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const state = {
+  wish:'', flaws:['','',''], behavior:null, basketLevel:null,
+  gameResult:null, soundOn:true, mode:'guided', skipped:false,
+};
+
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el = $(id);
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  const canvas = $('c');
+  if(id === 's-game'){
+    canvas.classList.add('playing');
+    $('dotsRow').classList.add('show');
+    $('modeControls').classList.add('show');
+    $('skipControls').classList.add('show');
+  } else {
+    canvas.classList.remove('playing');
+    $('dotsRow').classList.remove('show');
+    $('modeControls').classList.remove('show');
+    $('skipControls').classList.remove('show');
+    gameState='idle';
+  }
+  if(id === 's-birthday') fireConfetti(true);
+  if(id === 's-qualities') startQualities();
+  if(id === 's-birthday2') fireConfetti(true);
+  if(id === 's-final'){ buildFinalRecap(); playBirthdayTune(); fireConfetti(true); setTimeout(()=>fireConfetti(true),1000); }
+  sfx.click();
+}
+window.goTo = goTo;
+
+/* ============================================================
+   CONFETTI
+   ============================================================ */
+function fireConfetti(big=false){
+  const box = $('confetti');
+  const cols = ['#fb923c','#fbbf24','#f87171','#34d399','#60a5fa','#c084fc','#ffffff'];
+  const n = big ? 130 : 70;
+  for(let i=0;i<n;i++){
+    const d = document.createElement('div');
+    d.className = 'confetti-piece';
+    d.style.left = Math.random()*100+'vw';
+    d.style.background = cols[Math.floor(Math.random()*cols.length)];
+    d.style.animationDuration = (2.2 + Math.random()*2.2)+'s';
+    d.style.animationDelay = (Math.random()*.7)+'s';
+    d.style.width = (6 + Math.random()*8)+'px';
+    d.style.height = (8+Math.random()*11)+'px';
+    if(Math.random()<.4) d.style.borderRadius = '50%';
+    box.appendChild(d);
+    setTimeout(()=>d.remove(),5600);
+  }
+}
+
+/* ============================================================
+   AUDIO
+   ============================================================ */
+let actx=null;
+function ensureAudio(){
+  if(!actx){ try{ actx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return; } }
+  if(actx.state==='suspended') actx.resume();
+}
+function tone(freq,dur,type='sine',vol=.2,slide=0,delay=0){
+  if(!state.soundOn||!actx) return;
+  const t0 = actx.currentTime + delay;
+  const o = actx.createOscillator(); const g = actx.createGain();
+  o.type = type; o.frequency.setValueAtTime(freq,t0);
+  if(slide) o.frequency.exponentialRampToValueAtTime(Math.max(20,freq+slide),t0+dur);
+  g.gain.setValueAtTime(vol,t0);
+  g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+  o.connect(g).connect(actx.destination);
+  o.start(t0); o.stop(t0+dur+.02);
+}
+const sfx = {
+  click:()=>tone(700,.06,'sine',.09,300),
+  pop:()=>tone(900,.08,'triangle',.1,400),
+  score:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.25,'triangle',.2,0,i*.08)),
+  swish:()=>tone(2000,.25,'sine',.07,-1500),
+  rim:()=>{ tone(880,.18,'triangle',.16,-200); tone(1320,.1,'sine',.07); },
+  bounce:()=>tone(110,.14,'sine',.32,-60),
+  board:()=>tone(220,.12,'square',.11,-80),
+  miss:()=>tone(200,.3,'sawtooth',.06,-120),
+  whistle:()=>{ tone(2400,.5,'square',.09); tone(2400,.7,'square',.09,0,.25); },
+};
+function playBirthdayTune(){
+  ensureAudio();
+  const N={G:392,A:440,B:494,C:523,D:587,E:659,F:698,G5:784};
+  const song=[['G',.22],['G',.22],['A',.42],['G',.42],['C',.42],['B',.72],
+    ['G',.22],['G',.22],['A',.42],['G',.42],['D',.42],['C',.72],
+    ['G',.22],['G',.22],['G5',.42],['E',.42],['C',.42],['B',.42],['A',.72],
+    ['F',.22],['F',.22],['E',.42],['C',.42],['D',.42],['C',.85]];
+  let t=0;
+  song.forEach(([n,d])=>{ tone(N[n],d*.95,'triangle',.17,0,t); t+=d; });
+}
+
+/* ============================================================
+   INTRO TITLE
+   ============================================================ */
+(function(){
+  const el = $('introTitle');
+  el.innerHTML = 'KEHYS'.split('').map((c,i)=>
+    `<span style="animation-delay:${.4+i*.12}s">${c}</span>`).join('');
+})();
+
+/* ============================================================
+   STEP 1 · WISH
+   ============================================================ */
+$('wishInput').addEventListener('input', e=>{
+  $('wishCount').textContent = e.target.value.length;
+  $('wishErr').classList.remove('show');
+});
+function validateWish(){
+  ensureAudio();
+  const v = $('wishInput').value.trim();
+  if(v.length < 2){
+    const el = $('wishInput');
+    el.classList.add('err'); setTimeout(()=>el.classList.remove('err'),400);
+    $('wishErr').textContent = "Il faut au moins une réponse ! Même « devenir champion de sieste » compte ";
+    $('wishErr').classList.add('show');
+    return;
+  }
+  state.wish = v;
+  fireConfetti(); sfx.score();
+  goTo('s-qualities');
+}
+window.validateWish = validateWish;
+
+/* ============================================================
+   STEP 2 · QUALITIES
+   ============================================================ */
+const QUALITIES = [
+  ['','Intelligent'],
+  ['','Drôle'],
+  ['','Sympa… quand il le veut !'],
+  ['','Gentil… quand il s\'y met !'],
+  ['','Déterminé'],
+  ['','Généreux <span style="opacity:.6;font-size:.85em">(c\'est plus moi mais bon )</span>'],
+  ['','Bon sérieux'],
+  ['','Énergique'],
+  ['','Geek <span style="opacity:.75;font-size:.9em">(content de jouer à GTA )</span>'],
+  ['','Amusant'],
+  ['','Beau'],
+  ['','<span class="strike">Magnifique</span> <span class="magnif">MAGNIFIAK</span>'],
+  ['','Unique — et c\'est sa plus grande force !'],
+];
+let qualTimers = [];
+function startQualities(){
+  const list = $('qualityList');
+  list.innerHTML = '';
+  $('qualBtn').style.display = 'none';
+  qualTimers.forEach(clearTimeout); qualTimers = [];
+  QUALITIES.forEach((q,i)=>{
+    qualTimers.push(setTimeout(()=>{
+      const d = document.createElement('div');
+      d.className = 'quality-chip';
+      d.innerHTML = `<span class="quality-num">${i+1}</span><span class="quality-text">${q[0]} ${q[1]}</span>`;
+      list.appendChild(d);
+      sfx.pop();
+      if(i === QUALITIES.length-1){
+        setTimeout(()=>{
+          $('qualBtn').style.display = 'inline-flex';
+          sfx.score(); fireConfetti();
+        },500);
+      }
+    }, 240*i));
+  });
+}
+
+/* ============================================================
+   STEP 3 · FLAWS
+   ============================================================ */
+const FORBIDDEN = ['aucun','aucune','rien','néant','neant','-','...','pas de défaut','pas de defaut','aucun défaut','aucun defaut','0','non'];
+function validateFlaws(){
+  ensureAudio();
+  const inputs = [$('flaw1'),$('flaw2'),$('flaw3')];
+  const vals = inputs.map(i=>i.value.trim());
+  const norm = s => s.toLowerCase().replace(/[.!]/g,'').trim();
+  let err = '';
+  if(vals.some(v=>v.length < 2)) err = "Les 3 défauts doivent être remplis ! ";
+  else if(vals.some(v=>FORBIDDEN.includes(norm(v)))) err = "Interdit de dire « aucun » !  Personne n'est parfait.";
+  else if(new Set(vals.map(v=>v.toLowerCase())).size !== 3) err = "Les 3 défauts doivent être différents ! Pas de copier-coller malin ";
+  if(err){
+    inputs.forEach(i=>{ i.classList.add('err'); setTimeout(()=>i.classList.remove('err'),400); });
+    $('flawErr').textContent = err;
+    $('flawErr').classList.add('show');
+    return;
+  }
+  state.flaws = vals;
+  sfx.score();
+  goTo('s-behavior');
+}
+window.validateFlaws = validateFlaws;
+
+/* ============================================================
+   STEP 4 & 5 · RATING GRIDS
+   ============================================================ */
+function buildRatingGrid(containerId, btnId, key){
+  const c = $(containerId); c.innerHTML = '';
+  for(let n=1;n<=10;n++){
+    const b = document.createElement('button');
+    b.className = 'rating-btn'; b.textContent = n;
+    b.addEventListener('click', ()=>{
+      c.querySelectorAll('.rating-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      state[key] = n;
+      $(btnId).disabled = false;
+      sfx.pop();
+    });
+    c.appendChild(b);
+  }
+}
+buildRatingGrid('behGrid','behBtn','behavior');
+buildRatingGrid('bskGrid','bskBtn','basketLevel');
+
+/* ============================================================
+   CHOIX DU MODE DE JEU
+   ============================================================ */
+document.querySelectorAll('.mode-option').forEach(button => button.addEventListener('click', () => {
+  state.mode = button.dataset.mode;
+  document.querySelectorAll('.mode-option').forEach(b=>{
+    const sel = b.dataset.mode === state.mode;
+    b.classList.toggle('active', sel);
+    b.setAttribute('aria-pressed', String(sel));
+    b.style.borderColor = sel ? '#fb923c' : 'rgba(255,255,255,.16)';
+    b.style.background = sel ? 'rgba(249,115,22,.18)' : 'rgba(255,255,255,.05)';
+  });
+  $('modeDescription').innerHTML = state.mode === 'guided'
+    ? 'Bleu : vol • orange : rebond • vert : panier. Visualise le tir avant de lâcher.<br>Tu pourras changer de mode <b>à tout moment</b> pendant la partie (bouton en bas à gauche ou touche G).'
+    : 'Aucun tracé : dose la puissance et vise à l\'instinct.<br>Tu pourras changer de mode <b>à tout moment</b> pendant la partie (bouton en bas à gauche ou touche G).';
+  if(gameState === 'playing') setGameMode(state.mode);
+  sfx.pop();
+}));
+
+/* ============================================================
+   3D BASKETBALL GAME
+   ============================================================ */
+const canvas = $('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b1020);
+scene.fog = new THREE.Fog(0x0b1020, 18, 50);
+const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 120);
+
+scene.add(new THREE.HemisphereLight(0xcfd8ff, 0x3a2a1a, 0.7));
+const sun = new THREE.DirectionalLight(0xfff2e0, 1.6);
+sun.position.set(6, 14, 6);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.left = -14; sun.shadow.camera.right = 14;
+sun.shadow.camera.top = 14; sun.shadow.camera.bottom = -14;
+sun.shadow.camera.far = 50;
+sun.shadow.bias = -0.0005;
+scene.add(sun);
+const spot = new THREE.PointLight(0xffd9a0, 40, 20);
+spot.position.set(0, 7, 2);
+scene.add(spot);
+
+function woodTexture() {
+  const cv = document.createElement('canvas'); cv.width = cv.height = 512;
+  const g = cv.getContext('2d');
+  g.fillStyle = '#c98a4b'; g.fillRect(0, 0, 512, 512);
+  for (let i = 0; i < 16; i++) {
+    const y = i * 32;
+    g.fillStyle = `hsl(${26 + Math.random() * 6}, ${50 + Math.random() * 15}%, ${48 + Math.random() * 12}%)`;
+    g.fillRect(0, y, 512, 32);
+    g.fillStyle = 'rgba(0,0,0,.18)'; g.fillRect(0, y + 31, 512, 1);
+    for (let k = 0; k < 40; k++) { g.fillStyle = `rgba(90,50,20,${Math.random() * .12})`; g.fillRect(Math.random() * 512, y + Math.random() * 32, 60 + Math.random() * 120, 1); }
+    g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(Math.random() * 512, y, 1, 32);
+  }
+  const t = new THREE.CanvasTexture(cv);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(10, 10); t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(44, 44), new THREE.MeshStandardMaterial({ map: woodTexture(), roughness: .55, metalness: .05 }));
+floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+
+const lineMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .6 });
+function addLine(x1, z1, x2, z2, w = 0.05) {
+  const len = Math.hypot(x2 - x1, z2 - z1);
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(len, w), lineMat);
+  m.rotation.set(-Math.PI / 2, 0, Math.atan2(-(z2 - z1), x2 - x1));
+  m.position.set((x1 + x2) / 2, 0.005, (z1 + z2) / 2);
+  m.receiveShadow = true; scene.add(m);
+}
+function addArc(cx, cz, r, t0, t1, w = 0.05) {
+  const m = new THREE.Mesh(new THREE.RingGeometry(r - w / 2, r + w / 2, 72, 1, t0, t1 - t0), lineMat);
+  m.rotation.x = -Math.PI / 2; m.position.set(cx, 0.005, cz); scene.add(m);
+}
+const BASE = -1.575;
+addLine(-7.5, BASE, 7.5, BASE, 0.08);
+addLine(-7.5, BASE, -7.5, 14, 0.08); addLine(7.5, BASE, 7.5, 14, 0.08);
+addLine(-7.5, 14, 7.5, 14, 0.08);
+addArc(0, 14, 1.8, 0, Math.PI);
+addLine(-2.45, BASE, -2.45, 4.225); addLine(2.45, BASE, 2.45, 4.225); addLine(-2.45, 4.225, 2.45, 4.225);
+addArc(0, 4.225, 1.8, 0, Math.PI * 2);
+const a3 = Math.acos(6.6 / 6.75);
+addArc(0, 0, 6.75, Math.PI + a3, 2 * Math.PI - a3, 0.06);
+addLine(-6.6, BASE, -6.6, 6.75 * Math.sin(a3), 0.06); addLine(6.6, BASE, 6.6, 6.75 * Math.sin(a3), 0.06);
+addArc(0, 0, 1.25, Math.PI, 2 * Math.PI, 0.05);
+
+const standMat = new THREE.MeshStandardMaterial({ color: 0x1b2540, roughness: .9 });
+const seatCols = [0xef4444, 0x3b82f6, 0xf59e0b, 0x10b981, 0xa855f7];
+for (let row = 0; row < 7; row++) {
+  const b = new THREE.Mesh(new THREE.BoxGeometry(24, 0.6 + row * 0.6, 1.2), standMat);
+  b.position.set(0, (0.6 + row * 0.6) / 2, -4.5 - row * 1.2); b.receiveShadow = true; scene.add(b);
+  for (let s = -11; s <= 11; s++) {
+    if (Math.random() < 0.35) continue;
+    const seat = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 8), new THREE.MeshStandardMaterial({ color: seatCols[(s * 7 + row * 3 + 100) % seatCols.length], roughness: .8 }));
+    seat.position.set(s + (Math.random() - .5) * .3, 0.6 + row * 0.6 + 0.35, -4.5 - row * 1.2 + (Math.random() - .5) * .3);
+    scene.add(seat);
+  }
+}
+for (const side of [-1, 1]) {
+  for (let row = 0; row < 5; row++) {
+    const b = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.6 + row * 0.6, 20), standMat);
+    b.position.set(side * (9 + row * 1.2), (0.6 + row * 0.6) / 2, 6); scene.add(b);
+  }
+}
+const wall = new THREE.Mesh(new THREE.PlaneGeometry(60, 14), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 1 }));
+wall.position.set(0, 7, -14); scene.add(wall);
+for (let i = -2; i <= 2; i++) {
+  const strip = new THREE.Mesh(new THREE.BoxGeometry(5, 0.15, 0.1), new THREE.MeshBasicMaterial({ color: 0xffb27a }));
+  strip.position.set(i * 7, 8.5, -13.9); scene.add(strip);
+}
+
+const HOOP = new THREE.Vector3(0, 3.05, 0);
+const RIM_R = 0.23, TUBE_R = 0.02, BALL_R = 0.12, BZ = -0.45;
+const hoopGroup = new THREE.Group(); scene.add(hoopGroup);
+
+const metal = new THREE.MeshStandardMaterial({ color: 0x8892a6, metalness: .8, roughness: .35 });
+const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 3.9, 16), metal);
+pole.position.set(0, 1.95, -1.6); pole.castShadow = true; hoopGroup.add(pole);
+const arm = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.12, 1.15), metal);
+arm.position.set(0, 3.6, -1.05); arm.castShadow = true; hoopGroup.add(arm);
+const padBase = new THREE.Mesh(new THREE.BoxGeometry(0.4, 1.6, 0.4), new THREE.MeshStandardMaterial({ color: 0x1d4ed8, roughness: .9 }));
+padBase.position.set(0, 0.8, -1.6); hoopGroup.add(padBase);
+
+function boardTexture() {
+  const cv = document.createElement('canvas'); cv.width = 720; cv.height = 420;
+  const g = cv.getContext('2d');
+  g.fillStyle = 'rgba(235,242,255,1)'; g.fillRect(0, 0, 720, 420);
+  g.strokeStyle = '#ef4444'; g.lineWidth = 14; g.strokeRect(7, 7, 706, 406);
+  g.strokeRect(246, 192, 228, 180);
+  return new THREE.CanvasTexture(cv);
+}
+const board = new THREE.Mesh(new THREE.BoxGeometry(1.8, 1.05, 0.05),
+  new THREE.MeshPhysicalMaterial({ map: boardTexture(), transparent: true, opacity: .85, roughness: .15, transmission: 0, clearcoat: 1 }));
+board.position.set(0, 3.425, BZ - 0.025); board.castShadow = true; board.receiveShadow = true; hoopGroup.add(board);
+
+const rimMat = new THREE.MeshStandardMaterial({ color: 0xff5a1f, metalness: .5, roughness: .4 });
+const rim = new THREE.Mesh(new THREE.TorusGeometry(RIM_R, TUBE_R, 16, 48), rimMat);
+rim.rotation.x = Math.PI / 2; rim.position.copy(HOOP); rim.castShadow = true; hoopGroup.add(rim);
+const bracket = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.06, 0.24), rimMat);
+bracket.position.set(0, 3.03, -0.34); hoopGroup.add(bracket);
+
+(function makeNet() {
+  const N = 12, levels = [[3.05, .23], [2.95, .215], [2.85, .20], [2.75, .18], [2.65, .16], [2.58, .15]];
+  const pts = [];
+  for (let i = 0; i < N; i++) {
+    for (let l = 0; l < levels.length - 1; l++) {
+      const a0 = (i / N) * Math.PI * 2, a1 = ((i + 1) / N) * Math.PI * 2;
+      const [y0, r0] = levels[l], [y1, r1] = levels[l + 1];
+      pts.push(Math.cos(a0) * r0, y0, Math.sin(a0) * r0, Math.cos((a0 + a1) / 2) * r1, y1, Math.sin((a0 + a1) / 2) * r1);
+      pts.push(Math.cos(a1) * r0, y0, Math.sin(a1) * r0, Math.cos((a0 + a1) / 2) * r1, y1, Math.sin((a0 + a1) / 2) * r1);
+    }
+  }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+  const net = new THREE.LineSegments(geo, new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: .85 }));
+  hoopGroup.add(net);
+})();
+
+function ballTexture() {
+  const cv = document.createElement('canvas'); cv.width = 1024; cv.height = 512;
+  const g = cv.getContext('2d');
+  g.fillStyle = '#e8702a'; g.fillRect(0, 0, 1024, 512);
+  for (let i = 0; i < 6000; i++) { g.fillStyle = `rgba(0,0,0,${Math.random() * .08})`; g.fillRect(Math.random() * 1024, Math.random() * 512, 3, 3); }
+  g.strokeStyle = '#1a1a1a'; g.lineWidth = 10; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(0, 256); g.lineTo(1024, 256); g.stroke();
+  for (const x of [0, 256, 512, 768, 1024]) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, 512); g.stroke(); }
+  g.beginPath(); for (let x = 0; x <= 1024; x += 8) { const y = 256 + Math.sin(x / 1024 * Math.PI * 2) * 150; x === 0 ? g.moveTo(x, y) : g.lineTo(x, y); } g.stroke();
+  g.beginPath(); for (let x = 0; x <= 1024; x += 8) { const y = 256 - Math.sin(x / 1024 * Math.PI * 2) * 150; x === 0 ? g.moveTo(x, y) : g.lineTo(x, y); } g.stroke();
+  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+const ball = new THREE.Mesh(new THREE.SphereGeometry(BALL_R, 48, 32), new THREE.MeshStandardMaterial({ map: ballTexture(), roughness: .75, bumpScale: .002 }));
+ball.castShadow = true; scene.add(ball);
+
+const guide = new THREE.Group(); guide.visible = false; scene.add(guide);
+const guideLine = new THREE.Line(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: .88, depthWrite: false }));
+const guideDots = new THREE.Points(guideLine.geometry, new THREE.PointsMaterial({ size: .065, sizeAttenuation: true, vertexColors: true, transparent: true, opacity: .95, depthWrite: false }));
+guide.add(guideLine, guideDots);
+const flightColor = new THREE.Color(0x57ddff), bounceColor = new THREE.Color(0xffb454), scoreColor = new THREE.Color(0x4ade80);
+const impactMaterials = {
+  ground: new THREE.MeshBasicMaterial({ color: 0xffb454, side: THREE.DoubleSide }),
+  board: new THREE.MeshBasicMaterial({ color: 0xffb454, side: THREE.DoubleSide }),
+  rim: new THREE.MeshBasicMaterial({ color: 0xffb454, side: THREE.DoubleSide }),
+  pole: new THREE.MeshBasicMaterial({ color: 0xffb454, side: THREE.DoubleSide }),
+  score: new THREE.MeshBasicMaterial({ color: 0x4ade80, side: THREE.DoubleSide })
+};
+const impactSphere = new THREE.SphereGeometry(.065, 12, 8);
+const impactRing = new THREE.RingGeometry(.16, .205, 28);
+const impactMarkers = Array.from({ length: 12 }, () => {
+  const dot = new THREE.Mesh(impactSphere, impactMaterials.ground);
+  const ring = new THREE.Mesh(impactRing, impactMaterials.ground);
+  ring.rotation.x = -Math.PI / 2;
+  dot.visible = ring.visible = false;
+  guide.add(dot, ring);
+  return { dot, ring };
+});
+
+/* ============================================================
+   ÉTAT DU JEU
+   ============================================================ */
+const GOAL = 13;
+let gameState = 'idle';
+let mode = 'guided';
+let baskets = 0, streak = 0, shotsTaken = 0, elapsed = 0;
+let flying = false, endPending = false, nextShotTimer = null;
+let shooterPos = new THREE.Vector3(), shooterDist = 5;
+const ballVel = new THREE.Vector3();
+const liveSim = { pos: ball.position, vel: ballVel, t: 0, touched: false, scored: false, groundBounces: 0, done: false };
+const camPos = new THREE.Vector3(0, 3, 10), camLook = new THREE.Vector3(0, 2.4, 0);
+const camPosTarget = new THREE.Vector3(), camLookTarget = new THREE.Vector3();
+
+const hudMade = $('hudMade'), hudTime = $('hudTime'), hudStreak = $('hudStreak');
+const powerEl = $('power'), powerFill = $('powerFill'), hint = $('hint');
+const dotsRow = $('dotsRow');
+for(let i=0;i<GOAL;i++){
+  const d = document.createElement('div'); d.className = 'pdot'; dotsRow.appendChild(d);
+}
+
+function updateHUD(){
+  hudMade.textContent = baskets;
+  hudTime.textContent = elapsed.toFixed(1);
+  hudStreak.textContent = streak;
+  hudStreak.classList.toggle('fire', streak>=3);
+  hudStreak.style.color = streak>=3 ? '#fb923c' : '#fff';
+  dotsRow.querySelectorAll('.pdot').forEach((d,i)=>{ d.classList.toggle('done', i<baskets); });
+}
+function popup(text,color='#fff',fire=false){
+  const p = $('popup');
+  p.textContent = text; p.style.color = color;
+  p.classList.remove('show','fire'); void p.offsetWidth;
+  p.classList.add('show'); if(fire) p.classList.add('fire');
+}
+
+/* ============================================================
+   POSITIONNEMENT + TIR
+   ============================================================ */
+function newPosition(){
+  const d = 3.2 + Math.random()*5;
+  const a = (Math.random()*2-1)*Math.PI/3;
+  shooterPos.set(Math.sin(a)*d, 1.75, Math.cos(a)*d);
+  shooterDist = d;
+  ball.position.copy(shooterPos); ballVel.set(0,0,0);
+  flying = false; endPending = false; acc = 0;
+  Object.assign(liveSim, { t:0, touched:false, scored:false, groundBounces:0, done:false });
+  hideGuide();
+  const back = shooterPos.clone().sub(HOOP); back.y=0; back.normalize();
+  camPosTarget.copy(shooterPos).addScaledVector(back,2.6); camPosTarget.y = 2.7;
+  camLookTarget.set(0,2.3,0);
+}
+
+const UP = new THREE.Vector3(0,1,0);
+function shotVelocity(power,yaw){
+  const dir = HOOP.clone().sub(ball.position); dir.y=0;
+  dir.normalize().applyAxisAngle(UP,yaw);
+  const elev = THREE.MathUtils.degToRad(52);
+  const speed = 4 + power*9.5;
+  return new THREE.Vector3(
+    dir.x*Math.cos(elev)*speed,
+    Math.sin(elev)*speed,
+    dir.z*Math.cos(elev)*speed
+  );
+}
+function perfectVelocity(){
+  const start = ball.position.clone();
+  const dx = HOOP.x - start.x;
+  const dz = HOOP.z - start.z;
+  const dy = HOOP.y - start.y;
+  const x = Math.hypot(dx, dz);
+  const g = 9.81;
+  const theta = THREE.MathUtils.degToRad(52);
+  const cos2 = Math.cos(theta) ** 2;
+  const tan = Math.tan(theta);
+  const denom = 2 * cos2 * (x * tan - dy);
+  if(denom <= 0.0001 || x < 0.001) return new THREE.Vector3(0, 1, 0);
+  const v2 = g * x * x / denom;
+  if(v2 <= 0) return new THREE.Vector3(0, 1, 0);
+  const v = Math.sqrt(v2);
+  const dirX = dx / x, dirZ = dz / x;
+  return new THREE.Vector3(
+    dirX * Math.cos(theta) * v,
+    Math.sin(theta) * v,
+    dirZ * Math.cos(theta) * v
+  );
+}
+
+function hideGuide(){
+  guide.visible = false;
+  const s = $('guideStatus');
+  s.classList.add('hidden'); s.textContent = '';
+}
+function placeImpact(index, type, position){
+  const { dot, ring } = impactMarkers[index];
+  dot.material = impactMaterials[type]; dot.position.copy(position);
+  dot.scale.setScalar(type === 'score' ? 1.5 : 1);
+  dot.visible = true;
+  ring.visible = type === 'ground';
+  if(ring.visible) ring.position.set(position.x, .015, position.z);
+}
+function renderGuide(start, velocity, source=null){
+  const sim = {
+    pos: start.clone(), vel: velocity.clone(),
+    t: source ? source.t : 0,
+    touched: source ? source.touched : false,
+    scored: source ? source.scored : false,
+    groundBounces: source ? source.groundBounces : 0,
+    done: false
+  };
+  const positions = [], colors = [], hits = [];
+  let color = sim.scored ? scoreColor : (sim.touched || sim.groundBounces ? bounceColor : flightColor);
+  let markerCount = 0, lastHit = '', lastHitStep = -20;
+  function addPoint(){
+    positions.push(sim.pos.x, sim.pos.y, sim.pos.z);
+    colors.push(color.r, color.g, color.b);
+  }
+  addPoint();
+  for(let i=0;i<720;i++){
+    const wasScored = sim.scored;
+    const hit = advanceBall(sim, STEP);
+    if(hit){
+      color = sim.scored ? scoreColor : bounceColor;
+      if(!hits.includes(hit)) hits.push(hit);
+      if(markerCount < impactMarkers.length && (hit !== lastHit || i - lastHitStep > 14)){
+        placeImpact(markerCount++, hit, sim.pos);
+        lastHit = hit; lastHitStep = i;
+      }
+    }
+    if(sim.touched && color === flightColor) color = bounceColor;
+    if(!wasScored && sim.scored){
+      color = scoreColor;
+      if(markerCount < impactMarkers.length) placeImpact(markerCount++, 'score', sim.pos);
+    }
+    if(i % 3 === 0 || hit || sim.done || (!wasScored && sim.scored)) addPoint();
+    if(sim.done) break;
+  }
+  for(let i=markerCount;i<impactMarkers.length;i++){
+    impactMarkers[i].dot.visible = false;
+    impactMarkers[i].ring.visible = false;
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+  const old = guideLine.geometry;
+  guideLine.geometry = guideDots.geometry = geometry;
+  old.dispose();
+  guide.visible = true;
+  const names = { ground: 'sol', board: 'panneau', rim: 'arceau', pole: 'poteau' };
+  const status = $('guideStatus');
+  let message = 'Trajectoire sans contact';
+  if(source && source.scored) message = 'Panier marqué';
+  else if(sim.scored) message = hits.length ? 'Panier prévu avec rebond' : sim.touched ? 'Panier prévu avec contact' : 'Panier prévu : swish';
+  else if(hits.length) message = `Rebonds prévus : ${hits.map(hit=>names[hit]).join(', ')}`;
+  else if(sim.touched) message = 'Contact prévu avec le panier';
+  if(status.textContent !== message) status.textContent = message;
+  status.style.color = sim.scored ? '#86efac' : hits.length || sim.touched ? '#fdba74' : '#a5f3fc';
+  status.classList.remove('hidden');
+}
+function updateGuide(power, yaw){
+  if(mode === 'guided' && power > .08) renderGuide(ball.position, shotVelocity(power, yaw));
+  else hideGuide();
+}
+function shoot(power, yaw){
+  const userV = shotVelocity(power, yaw);
+  const perfectV = perfectVelocity();
+  const A = 0.55;
+  ballVel.set(
+    userV.x*(1-A) + perfectV.x*A,
+    userV.y*(1-A) + perfectV.y*A,
+    userV.z*(1-A) + perfectV.z*A
+  );
+  Object.assign(liveSim, { t:0, touched:false, scored:false, groundBounces:0, done:false });
+  lastRimSoundAt = -1;
+  flying = true; acc = 0;
+  if(mode === 'guided') renderGuide(ball.position, ballVel);
+  else hideGuide();
+  tone(400, .08, 'sine', .08, 200);
+}
+
+/* ============================================================
+   PHYSIQUE
+   ============================================================ */
+const STEP = 1/120;
+const tmpN = new THREE.Vector3(), spinAxis = new THREE.Vector3();
+let lastRimSoundAt = -1;
+function advanceBall(sim, dt){
+  const p = sim.pos, v = sim.vel, prevY = p.y, prevZ = p.z;
+  v.y -= 9.81 * dt;
+  p.addScaledVector(v, dt);
+  let impact = '';
+
+  if(p.y < BALL_R){
+    p.y = BALL_R;
+    if(v.y < 0){
+      const fallSpeed = -v.y;
+      v.y *= -0.55; v.x *= 0.8; v.z *= 0.8;
+      if(fallSpeed > 0.65){ impact = 'ground'; sim.groundBounces++; }
+    }
+  }
+  if(prevZ - BALL_R >= BZ && p.z - BALL_R < BZ && Math.abs(p.x) < 0.9 && p.y > 2.85 && p.y < 4.0){
+    p.z = BZ + BALL_R; v.z = Math.abs(v.z) * 0.6; v.x *= 0.9; v.y *= 0.9;
+    sim.touched = true; impact = 'board';
+  }
+  const pdx = p.x, pdz = p.z + 1.6, pd = Math.hypot(pdx, pdz);
+  if(pd > 1e-6 && pd < BALL_R + 0.08 && p.y < 3.9){
+    tmpN.set(pdx / pd, 0, pdz / pd);
+    p.x = tmpN.x * (BALL_R + 0.08); p.z = -1.6 + tmpN.z * (BALL_R + 0.08);
+    const vn = v.dot(tmpN);
+    if(vn < 0){ v.addScaledVector(tmpN, -1.5 * vn); v.multiplyScalar(0.9); impact = 'pole'; }
+    sim.touched = true;
+  }
+  const dx = p.x - HOOP.x, dz = p.z - HOOP.z, hd = Math.hypot(dx, dz) || 1e-6;
+  const nx = HOOP.x + dx / hd * RIM_R, nz = HOOP.z + dz / hd * RIM_R;
+  tmpN.set(p.x - nx, p.y - HOOP.y, p.z - nz);
+  const dist = tmpN.length(), minD = BALL_R + TUBE_R;
+  if(dist < minD && dist > 1e-6){
+    tmpN.divideScalar(dist);
+    p.addScaledVector(tmpN, minD - dist);
+    const vn = v.dot(tmpN);
+    if(vn < 0){
+      v.addScaledVector(tmpN, -(1 + 0.55) * vn); v.multiplyScalar(0.92);
+      if(vn < -0.45) impact = 'rim';
+    }
+    sim.touched = true;
+  }
+  const hoopDistance = Math.hypot(p.x - HOOP.x, p.z - HOOP.z);
+  if(!sim.scored && prevY > HOOP.y && p.y <= HOOP.y && v.y < 0 && hoopDistance < RIM_R + 0.04) sim.scored = true;
+  if(sim.scored && p.y < HOOP.y && p.y > 2.55 && hoopDistance < RIM_R + 0.04) v.multiplyScalar(0.975);
+
+  sim.t += dt;
+  const settled = p.y <= BALL_R + 0.002 && v.length() < 0.6;
+  sim.done = sim.t > 6 || sim.groundBounces >= 3 || settled || p.lengthSq() > 1600 || (sim.scored && p.y < 1.4);
+  return impact;
+}
+
+function physicsStep(dt){
+  const wasScored = liveSim.scored;
+  const hit = advanceBall(liveSim, dt);
+  if(hit === 'ground') sfx.bounce();
+  if(hit === 'board') sfx.board();
+  if(hit === 'rim' && liveSim.t - lastRimSoundAt > .08){ sfx.rim(); lastRimSoundAt = liveSim.t; }
+  if(!wasScored && liveSim.scored) onScore();
+
+  const sp = ballVel.length();
+  if(sp > 0.05){ spinAxis.set(ballVel.z, 0, -ballVel.x).normalize(); ball.rotateOnWorldAxis(spinAxis, sp / BALL_R * dt); }
+  if(liveSim.done && !endPending) endShot();
+}
+
+function onScore(){
+  baskets++; shotsTaken++; streak++;
+  const swish = !liveSim.touched, fire = streak >= 3;
+  sfx.score(); if(swish) sfx.swish();
+  const label = fire ? ' EN FEU !' : swish ? ' SWISH !' : '+1 PANIER !';
+  popup(label, fire ? '#fb923c' : swish ? '#fde047' : '#4ade80', fire);
+  updateHUD();
+  if(baskets >= GOAL){ endPending = true; setTimeout(finishGame, 1100); }
+}
+function endShot(){
+  if(!liveSim.scored){ shotsTaken++; streak = 0; sfx.miss(); popup('RATÉ','#f87171'); }
+  updateHUD();
+  if(baskets >= GOAL) return;
+  setTimeout(()=>{ if(gameState === 'playing') newPosition(); }, 500);
+}
+
+function finishGame(){
+  gameState = 'over'; flying = false;
+  hideGuide();
+  sfx.whistle();
+
+  const accuracy = shotsTaken ? Math.round(baskets/shotsTaken*100) : 0;
+  state.gameResult = { realTime: elapsed, shots: shotsTaken, made: baskets, accuracy, skipped: false };
+
+  $('resEmoji').textContent = '';
+  $('resTitle').textContent = 'DÉFI TERMINÉ !';
+  $('resSub').textContent = `13 paniers marqués — beau travail, Kehys !`;
+  $('resReal').textContent = `${elapsed.toFixed(1)} s`;
+  $('resShots').textContent = `${shotsTaken} tirs`;
+  $('resMade').textContent = `${baskets} / ${GOAL}`;
+  $('resAcc').textContent = `${accuracy} %`;
+
+  const box = $('resBox');
+  box.className = 'result-box';
+  box.innerHTML = `
+    <p class="font-black text-xl"> ${accuracy >= 70 ? 'Quel adresse !' : accuracy >= 50 ? 'Beau tableau de chasse !' : 'Bravo pour la persévérance !'}</p>
+    <p class="text-sm text-slate-300 mt-1">
+      ${accuracy >= 70 ? 'Tu as un vrai shoot de champion ' :
+        accuracy >= 50 ? 'Tu progresses, continue comme ça ' :
+        'Chaque panier compte, et tu les as tous mis '}
+    </p>`;
+
+  goTo('s-result');
+  fireConfetti(true);
+}
+
+/*  SAUT DU JEU : le joueur peut passer à l'étape suivante à tout moment */
+function skipGame(){
+  if(gameState !== 'playing') return;
+  state.skipped = true;
+  gameState = 'over';
+  flying = false; endPending = true;
+  hideGuide();
+  clearTimeout(nextShotTimer); clearTimeout(hintTimer);
+  sfx.click();
+  popup(' Jeu passé !', '#fde047');
+  setTimeout(()=>{
+    // On passe directement à l'écran "BIRTHDAY 2" (étape suivante après le jeu)
+    goTo('s-birthday2');
+  }, 700);
+}
+window.skipGame = skipGame;
+$('skipBtn').addEventListener('click', (e)=>{ e.stopPropagation(); skipGame(); });
+$('skipBtn').addEventListener('pointerdown', (e)=> e.stopPropagation());
+
+/* ============================================================
+   MODE DE JEU (bascule possible à tout moment)
+   ============================================================ */
+function setGameMode(next){
+  mode = next;
+  const btn = $('modeToggle');
+  btn.textContent = mode === 'guided' ? 'Mode guidé : activé' : 'Mode normal : sans tracé';
+  btn.setAttribute('aria-pressed', String(mode === 'guided'));
+  if(mode === 'normal') hideGuide();
+  else if(gameState === 'playing'){
+    if(dragging) updateGuide(power, yaw);
+    else if(flying && !endPending) renderGuide(ball.position, ballVel, liveSim);
+  }
+}
+$('modeToggle').addEventListener('click', (e)=>{
+  e.stopPropagation();
+  setGameMode(mode === 'guided' ? 'normal' : 'guided');
+  sfx.pop();
+});
+$('modeToggle').addEventListener('pointerdown', (e)=> e.stopPropagation());
+document.addEventListener('keydown', e=>{
+  if(gameState === 'playing' && !e.repeat && e.key.toLowerCase() === 'g') setGameMode(mode === 'guided' ? 'normal' : 'guided');
+});
+
+/* ============================================================
+   ENTRÉES
+   ============================================================ */
+let dragging = false, sx = 0, sy = 0, power = 0, yaw = 0;
+let activePointer = null, hintTimer = null, acc = 0;
+canvas.addEventListener('pointerdown', e=>{
+  if(gameState !== 'playing' || flying || dragging) return;
+  dragging = true; sx = e.clientX; sy = e.clientY; power = 0; yaw = 0;
+  activePointer = e.pointerId;
+  hint.style.display = 'none';
+  try { canvas.setPointerCapture(e.pointerId); } catch(e){}
+});
+canvas.addEventListener('pointermove', e=>{
+  if(!dragging || e.pointerId !== activePointer) return;
+  const dy = sy - e.clientY, dx = e.clientX - sx;
+  power = THREE.MathUtils.clamp(dy / (innerHeight * 0.45), 0, 1);
+  yaw = -THREE.MathUtils.clamp(dx / innerWidth, -0.5, 0.5) * 0.6;
+  powerFill.style.height = (power * 100) + '%';
+  updateGuide(power, yaw);
+});
+function release(e, cancelled=false){
+  if(!dragging || e.pointerId !== activePointer) return;
+  dragging = false; activePointer = null;
+  if(!cancelled && power > 0.08 && gameState === 'playing' && !flying) shoot(power, yaw);
+  else hideGuide();
+  powerFill.style.height = '0%';
+}
+canvas.addEventListener('pointerup', release);
+canvas.addEventListener('pointercancel', e=> release(e, true));
+
+/* ============================================================
+   DÉMARRAGE DU JEU
+   ============================================================ */
+function startBasketGame(){
+  ensureAudio();
+  mode = state.mode;
+  state.skipped = false;
+  setGameMode(mode);
+
+  clearTimeout(nextShotTimer); clearTimeout(hintTimer);
+  nextShotTimer = hintTimer = null;
+  baskets = 0; streak = 0; shotsTaken = 0; elapsed = 0;
+  flying = false; endPending = false;
+  gameState = 'playing';
+
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+
+  goTo('s-game');
+  hudMade.textContent = '0'; hudTime.textContent = '0.0'; hudStreak.textContent = '0';
+  dotsRow.querySelectorAll('.pdot').forEach(d=>d.classList.remove('done'));
+  powerEl.style.display = 'flex';
+  hint.style.display = 'block';
+  newPosition();
+  camPos.copy(camPosTarget); camLook.copy(camLookTarget);
+  updateHUD();
+
+  hintTimer = setTimeout(()=>{ if(gameState === 'playing') hint.style.display = 'none'; hintTimer = null; }, 6000);
+}
+window.startBasketGame = startBasketGame;
+
+/* ============================================================
+   BOUCLE DE RENDU
+   ============================================================ */
+const clock = new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.05);
+
+  if(gameState === 'playing'){
+    elapsed += dt;
+    hudTime.textContent = elapsed.toFixed(1);
+  }
+
+  if(flying && !endPending){
+    acc += dt;
+    while(acc >= STEP && !endPending){ physicsStep(STEP); acc -= STEP; }
+    camLookTarget.lerpVectors(HOOP, ball.position, 0.35);
+  } else if(gameState === 'playing'){
+    camLookTarget.set(0, 2.3, 0);
+    ball.rotation.y += dt * 0.6;
+    ball.position.y = shooterPos.y + Math.sin(performance.now() / 400) * 0.02;
+  }
+  if(gameState === 'idle'){
+    const t = performance.now() / 7000;
+    camPosTarget.set(Math.sin(t) * 7.5, 3.3, Math.cos(t) * 7.5 + 2.5);
+    camLookTarget.set(0, 2.5, 0);
+    ball.position.set(Math.sin(t * 1.6) * 2.2, 1.4 + Math.sin(performance.now() / 500) * .12, Math.cos(t * 1.6) * 2.2 + 1);
+    ball.rotation.y += dt * 1.2;
+  }
+  camPos.lerp(camPosTarget, 1 - Math.pow(0.001, dt));
+  camLook.lerp(camLookTarget, 1 - Math.pow(0.001, dt));
+  camera.position.copy(camPos); camera.lookAt(camLook);
+  if(canvas.classList.contains('playing')) renderer.render(scene, camera);
+}
+renderer.setSize(1,1); camera.aspect = 1; camera.updateProjectionMatrix();
+animate();
+
+addEventListener('resize', ()=>{
+  if(canvas.classList.contains('playing')){
+    const w = innerWidth, h = innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+});
+
+/* ============================================================
+   RÉCAP FINAL
+   ============================================================ */
+function buildFinalRecap(){
+  const list = $('finalList');
+  const items = [];
+  items.push(` <b>Ton objectif de l'année :</b> « ${state.wish} »`);
+  items.push(` <b>Tes 3 défauts assumés :</b> ${state.flaws.join(' · ')}`);
+  items.push(` <b>Comportement :</b> ${state.behavior}/10 ·  <b>Niveau basket :</b> ${state.basketLevel}/10`);
+  if(state.gameResult){
+    const g = state.gameResult;
+    items.push(` <b>Défi 13 paniers :</b> ${g.realTime.toFixed(1)} s en ${g.shots} tirs (${g.accuracy} % de réussite)`);
+  } else if(state.skipped){
+    items.push(` <b>Défi 13 paniers :</b> passé, on file à la suite !`);
+  }
+  list.innerHTML = items.map(t=>`<li>${t}</li>`).join('');
+}
+
+/* ============================================================
+   TÉLÉCHARGEMENT FORCÉ DU RÉCAPITULATIF
+   ============================================================ */
+function downloadRecap(){
+  sfx.click();
+  const g = state.gameResult;
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
+  const timeStr = now.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+
+  const lines = [];
+  lines.push('');
+  lines.push('    JOYEUX ANNIVERSAIRE KEHYS · 13 ANS ');
+  lines.push('');
+  lines.push(`Fait le ${dateStr} à ${timeStr}`);
+  lines.push('');
+  lines.push(' TON OBJECTIF DE L\'ANNÉE ');
+  lines.push('« ' + state.wish + ' »');
+  lines.push('');
+  lines.push(' TES 3 DÉFAUTS ASSUMÉS ');
+  state.flaws.forEach((f,i)=> lines.push(`${i+1}. ${f}`));
+  lines.push('');
+  lines.push(' TES AUTO-ÉVALUATIONS ');
+  lines.push(`Comportement : ${state.behavior}/10`);
+  lines.push(`Niveau basket : ${state.basketLevel}/10`);
+  lines.push('');
+  if(g){
+    lines.push(' DÉFI DES 13 PANIERS ');
+    lines.push(`Temps total : ${g.realTime.toFixed(1)} s`);
+    lines.push(`Tirs tentés : ${g.shots}`);
+    lines.push(`Paniers marqués : ${g.made} / 13`);
+    lines.push(`Réussite : ${g.accuracy} %`);
+    lines.push('');
+    lines.push(g.accuracy >= 70 ? ' Quel adresse, futur MVP !' :
+              g.accuracy >= 50 ? ' Beau tableau de chasse, continue !' :
+              ' Bravo pour la persévérance !');
+  } else if(state.skipped){
+    lines.push(' DÉFI DES 13 PANIERS ');
+    lines.push('(Passé — étape sautée volontairement)');
+  }
+  lines.push('');
+  lines.push(' LES 13 QUALITÉS ');
+  const Q = ['Intelligent','Drôle','Sympa (quand il le veut !)','Gentil (quand il s\'y met !)',
+    'Déterminé','Généreux (c\'est plus moi mais bon )','Bon sérieux','Énergique',
+    'Geek (content de jouer à GTA )','Amusant','Beau','Magnifiak ','Unique — sa plus grande force !'];
+  Q.forEach((q,i)=> lines.push(`${i+1}. ${q}`));
+  lines.push('');
+  lines.push('');
+  lines.push('   Que cette année soit pleine de paniers,');
+  lines.push('     de rires et de moments inoubliables. ');
+  lines.push('');
+
+  const textContent = lines.join('\n');
+  const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Anniversaire-Kehys-13ans-${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 1500);
+
+  popup(' Récap téléchargé !', '#86efac');
+  fireConfetti();
+}
+window.downloadRecap = downloadRecap;
+
+/* ============================================================
+   CLAVIER + DÉBLOCAGE AUDIO
+   ============================================================ */
+document.addEventListener('keydown', e=>{
+  if(e.key !== 'Enter') return;
+  const active = document.querySelector('.screen.active');
+  if(!active) return;
+  if(active.id === 's-wish') validateWish();
+  else if(active.id === 's-flaws') validateFlaws();
+});
+['click','touchstart','keydown'].forEach(ev =>
+  document.addEventListener(ev, ensureAudio, { once:true })
+);
+</script>
+</body>
+</html>
