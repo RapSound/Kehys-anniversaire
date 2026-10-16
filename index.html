@@ -186,7 +186,7 @@
   #modeToggle:hover { background:rgba(10,14,30,.9); }
   #modeToggle:active { transform:scale(.95); }
 
-  /*  Bouton "Passer" en bas à droite */
+  /*  Bouton "Passer" en bas Ã  droite */
   #skipControls { position:fixed; bottom:12px; right:12px; z-index:200; display:none; pointer-events:auto; }
   #skipControls.show { display:block; }
   #skipBtn { background:rgba(10,14,30,.75); backdrop-filter:blur(10px);
@@ -211,21 +211,21 @@
 <div id="confetti"></div>
 <div id="popup"></div>
 
-<!-- ========== 1 · INTRO ========== -->
+<!-- ========== 1 Â· INTRO ========== -->
 <section id="s-intro" class="screen active">
   <div class="panel center">
     <div class="ball-wrap"><div class="ball-3d"><div class="curve-l"></div><div class="curve-r"></div></div></div>
     <p class="step-label mt-3"> Une surprise t'attend </p>
     <div id="introTitle" class="title-letters"></div>
     <p class="sub mt-2" style="max-width:400px;margin-left:auto;margin-right:auto;">
-      Suis le guide, tout se révèle au fur et à mesure.
+      Suis le guide, tout se rÃ©vÃ¨le au fur et Ã  mesure.
     </p>
     <button class="btn big mt-3" onclick="goTo('s-birthday')"> COMMENCER</button>
-    <p class="text-xs text-slate-500 mt-3"> Active le son · Jouable au doigt ou à la souris</p>
+    <p class="text-xs text-slate-500 mt-3"> Active le son Â· Jouable au doigt ou Ã  la souris</p>
   </div>
 </section>
 
-<!-- ========== 2 · BIRTHDAY 1 ========== -->
+<!-- ========== 2 Â· BIRTHDAY 1 ========== -->
 <section id="s-birthday" class="screen">
   <div class="panel center">
     <div class="ball-wrap"><div class="ball-3d"><div class="curve-l"></div><div class="curve-r"></div></div></div>
@@ -242,95 +242,95 @@
   </div>
 </section>
 
-<!-- ========== 3 · WISH ========== -->
+<!-- ========== 3 Â· WISH ========== -->
 <section id="s-wish" class="screen">
   <div class="panel">
-    <p class="step-label">Étape 1 / 5 · Le défi personnel</p>
-    <h2>Cette année, qu'est-ce que tu aimerais <span class="shine">changer</span> ou améliorer chez toi ? </h2>
-    <p class="sub">Une seule réponse suffit.</p>
-    <textarea id="wishInput" class="field mt-2" rows="4" maxlength="300" placeholder="Ex : être plus patient, ranger ma chambre (parfois)…"></textarea>
+    <p class="step-label">Ã‰tape 1 / 5 Â· Le dÃ©fi personnel</p>
+    <h2>Cette annÃ©e, qu'est-ce que tu aimerais <span class="shine">changer</span> ou amÃ©liorer chez toi ? </h2>
+    <p class="sub">Une seule rÃ©ponse suffit.</p>
+    <textarea id="wishInput" class="field mt-2" rows="4" maxlength="300" placeholder="Ex : Ãªtre plus patient, ranger ma chambre (parfois)Â…"></textarea>
     <div class="text-xs text-slate-500 mt-1" style="display:flex;justify-content:space-between;">
       <span id="wishCount">0</span><span>max 300</span>
     </div>
     <p id="wishErr" class="err-msg"></p>
-    <button class="btn full mt-2" onclick="validateWish()">Valider ma réponse </button>
+    <button class="btn full mt-2" onclick="validateWish()">Valider ma rÃ©ponse </button>
   </div>
 </section>
 
-<!-- ========== 4 · QUALITIES ========== -->
+<!-- ========== 4 Â· QUALITIES ========== -->
 <section id="s-qualities" class="screen">
   <div class="panel">
-    <p class="step-label">Étape 2 / 5 · Tes super-pouvoirs</p>
-    <h2 class="center">13 ans, 13 qualités ! </h2>
-    <p class="sub center">Elles arrivent une par une…</p>
+    <p class="step-label">Ã‰tape 2 / 5 Â· Tes super-pouvoirs</p>
+    <h2 class="center">13 ans, 13 qualitÃ©s ! </h2>
+    <p class="sub center">Elles arrivent une par uneÂ…</p>
     <div id="qualityList" class="quality-list"></div>
     <button id="qualBtn" class="btn full" style="display:none;" onclick="goTo('s-flaws')">Continuer </button>
   </div>
 </section>
 
-<!-- ========== 5 · FLAWS ========== -->
+<!-- ========== 5 Â· FLAWS ========== -->
 <section id="s-flaws" class="screen">
   <div class="panel">
-    <p class="step-label">Étape 3 / 5 · Moment vérité</p>
-    <h2>Bon, maintenant, tes 3 principaux <span class="shine">défauts</span>… </h2>
+    <p class="step-label">Ã‰tape 3 / 5 Â· Moment vÃ©ritÃ©</p>
+    <h2>Bon, maintenant, tes 3 principaux <span class="shine">dÃ©fauts</span>Â… </h2>
     <p class="sub">Aller assume maintenant </p>
     <div class="mt-2" style="display:flex;flex-direction:column;gap:10px;">
-      <input id="flaw1" class="field" maxlength="60" placeholder="Défaut n°1">
-      <input id="flaw2" class="field" maxlength="60" placeholder="Défaut n°2">
-      <input id="flaw3" class="field" maxlength="60" placeholder="Défaut n°3">
+      <input id="flaw1" class="field" maxlength="60" placeholder="DÃ©faut nÂ°1">
+      <input id="flaw2" class="field" maxlength="60" placeholder="DÃ©faut nÂ°2">
+      <input id="flaw3" class="field" maxlength="60" placeholder="DÃ©faut nÂ°3">
     </div>
     <p id="flawErr" class="err-msg"></p>
     <button class="btn full mt-2" onclick="validateFlaws()">J'assume </button>
   </div>
 </section>
 
-<!-- ========== 6 · BEHAVIOR ========== -->
+<!-- ========== 6 Â· BEHAVIOR ========== -->
 <section id="s-behavior" class="screen">
   <div class="panel">
-    <p class="step-label">Étape 4 / 5 · Auto-évaluation</p>
+    <p class="step-label">Ã‰tape 4 / 5 Â· Auto-Ã©valuation</p>
     <h2>Comment notes-tu ton <span class="shine">comportement</span> en moyenne ? </h2>
-    <p class="sub">Sois honnête… personne ne regarde.</p>
+    <p class="sub">Sois honnÃªteÂ… personne ne regarde.</p>
     <div id="behGrid" class="rating-grid"></div>
     <div class="text-sm text-slate-300" style="display:flex;justify-content:space-between;">
-      <span>1 · Il y a du travail !</span><span>10 · Presque parfait !</span>
+      <span>1 Â· Il y a du travail !</span><span>10 Â· Presque parfait !</span>
     </div>
     <button id="behBtn" class="btn full mt-3" disabled onclick="goTo('s-basket')">Valider ma note </button>
   </div>
 </section>
 
-<!-- ========== 7 · BASKET LEVEL ========== -->
+<!-- ========== 7 Â· BASKET LEVEL ========== -->
 <section id="s-basket" class="screen">
   <div class="panel">
-    <p class="step-label">Étape 5 / 5 · Niveau basket</p>
+    <p class="step-label">Ã‰tape 5 / 5 Â· Niveau basket</p>
     <h2>Et au basket, tu te trouves comment ? </h2>
     <p class="sub">Choisis ton mode et lance-toi.</p>
     <div id="bskGrid" class="rating-grid"></div>
     <div class="text-sm text-slate-300" style="display:flex;justify-content:space-between;">
-      <span>1 · Je débute</span><span>10 · Future star NBA</span>
+      <span>1 Â· Je dÃ©bute</span><span>10 Â· Future star NBA</span>
     </div>
 
     <div class="mt-3" style="text-align:left;">
-      <div class="text-xs" style="letter-spacing:.2em;text-transform:uppercase;color:#94a3b8;font-weight:800;margin-bottom:8px;">Choisis ton mode de départ</div>
+      <div class="text-xs" style="letter-spacing:.2em;text-transform:uppercase;color:#94a3b8;font-weight:800;margin-bottom:8px;">Choisis ton mode de dÃ©part</div>
       <div style="display:flex;gap:8px;" role="group" aria-label="Mode de jeu">
         <button type="button" class="mode-option active" data-mode="guided" aria-pressed="true"
           style="flex:1;border-radius:14px;padding:12px;text-align:left;cursor:pointer;font-family:inherit;color:#fff;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);transition:.2s;">
-          <span style="display:block;font-weight:800;font-size:13px;">Mode guidé</span>
+          <span style="display:block;font-weight:800;font-size:13px;">Mode guidÃ©</span>
           <span style="display:block;color:#cbd5e1;font-size:11px;margin-top:2px;">Trajectoire et rebonds</span>
         </button>
         <button type="button" class="mode-option" data-mode="normal" aria-pressed="false"
           style="flex:1;border-radius:14px;padding:12px;text-align:left;cursor:pointer;font-family:inherit;color:#fff;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);transition:.2s;">
           <span style="display:block;font-weight:800;font-size:13px;">Mode normal</span>
-          <span style="display:block;color:#cbd5e1;font-size:11px;margin-top:2px;">Tir à l'instinct</span>
+          <span style="display:block;color:#cbd5e1;font-size:11px;margin-top:2px;">Tir Ã  l'instinct</span>
         </button>
       </div>
-      <p id="modeDescription" class="text-xs text-slate-400 mt-2">Bleu : vol • orange : rebond • vert : panier. Visualise le tir avant de lâcher.<br>Tu pourras changer de mode <b>à tout moment</b> pendant la partie (bouton en bas à gauche ou touche G).</p>
+      <p id="modeDescription" class="text-xs text-slate-400 mt-2">Bleu : vol Â• orange : rebond Â• vert : panier. Visualise le tir avant de lÃ¢cher.<br>Tu pourras changer de mode <b>Ã  tout moment</b> pendant la partie (bouton en bas Ã  gauche ou touche G).</p>
     </div>
 
-    <button id="bskBtn" class="btn full mt-3" disabled onclick="startBasketGame()"> LANCER LE DÉFI</button>
+    <button id="bskBtn" class="btn full mt-3" disabled onclick="startBasketGame()"> LANCER LE DÃ‰FI</button>
   </div>
 </section>
 
-<!-- ========== 8 · GAME ========== -->
+<!-- ========== 8 Â· GAME ========== -->
 <section id="s-game" class="screen">
   <div id="gameHud">
     <div class="hud-card">
@@ -342,15 +342,15 @@
       <div class="hud-val" id="hudTime">0.0</div>
     </div>
     <div class="hud-card">
-      <div class="hud-lbl">Série</div>
+      <div class="hud-lbl">SÃ©rie</div>
       <div class="hud-val" id="hudStreak">0</div>
     </div>
   </div>
   <div id="power"><div id="powerFill"></div></div>
-  <div id="hint"><span> Glisse vers le haut pour tirer · gauche/droite pour viser</span></div>
+  <div id="hint"><span> Glisse vers le haut pour tirer Â· gauche/droite pour viser</span></div>
   <div id="modeControls">
     <div id="guideStatus"></div>
-    <button id="modeToggle" type="button" aria-label="Changer de mode de jeu (touche G)" aria-pressed="true">Mode guidé : activé</button>
+    <button id="modeToggle" type="button" aria-label="Changer de mode de jeu (touche G)" aria-pressed="true">Mode guidÃ© : activÃ©</button>
   </div>
   <div id="skipControls">
     <button id="skipBtn" type="button" aria-label="Passer le jeu et continuer"> Passer le jeu</button>
@@ -358,24 +358,24 @@
   <div class="progress-dots" id="dotsRow"></div>
 </section>
 
-<!-- ========== 9 · RESULT ========== -->
+<!-- ========== 9 Â· RESULT ========== -->
 <section id="s-result" class="screen">
   <div class="panel center">
     <div id="resEmoji" class="text-4xl"></div>
-    <h2 id="resTitle" class="mt-1">DÉFI TERMINÉ !</h2>
+    <h2 id="resTitle" class="mt-1">DÃ‰FI TERMINÃ‰ !</h2>
     <p class="sub" id="resSub"></p>
     <div class="mt-3" style="text-align:left;">
-      <div class="stat-row"><span> Temps total</span><b id="resReal">—</b></div>
-      <div class="stat-row"><span> Tirs tentés</span><b id="resShots">—</b></div>
-      <div class="stat-row"><span> Paniers marqués</span><b id="resMade">—</b></div>
-      <div class="stat-row"><span> Réussite</span><b id="resAcc">—</b></div>
+      <div class="stat-row"><span> Temps total</span><b id="resReal">Â—</b></div>
+      <div class="stat-row"><span> Tirs tentÃ©s</span><b id="resShots">Â—</b></div>
+      <div class="stat-row"><span> Paniers marquÃ©s</span><b id="resMade">Â—</b></div>
+      <div class="stat-row"><span> RÃ©ussite</span><b id="resAcc">Â—</b></div>
     </div>
     <div id="resBox" class="result-box"></div>
-    <button class="btn mt-3" onclick="goTo('s-birthday2')">Continuer la fête </button>
+    <button class="btn mt-3" onclick="goTo('s-birthday2')">Continuer la fÃªte </button>
   </div>
 </section>
 
-<!-- ========== 10 · BIRTHDAY 2 ========== -->
+<!-- ========== 10 Â· BIRTHDAY 2 ========== -->
 <section id="s-birthday2" class="screen">
   <div class="panel center">
     <div style="display:flex;justify-content:center;align-items:flex-end;gap:16px;">
@@ -386,14 +386,14 @@
     <div class="birthday-line mt-3">JOYEUX ANNIVERSAIRE</div>
     <div class="birthday-big">KEHYS !</div>
     <p class="sub mt-2">
-      Tu viens de relever le défi comme un vrai champion .<br>
-      Que cette année à 13 ans soit remplie de rires, de réussite et de moments inoubliables.
+      Tu viens de relever le dÃ©fi comme un vrai champion .<br>
+      Que cette annÃ©e Ã  13 ans soit remplie de rires, de rÃ©ussite et de moments inoubliables.
     </p>
-    <button class="btn big mt-3" onclick="goTo('s-final')"> Voir le récapitulatif</button>
+    <button class="btn big mt-3" onclick="goTo('s-final')"> Voir le rÃ©capitulatif</button>
   </div>
 </section>
 
-<!-- ========== 11 · FINAL ========== -->
+<!-- ========== 11 Â· FINAL ========== -->
 <section id="s-final" class="screen">
   <div class="panel center">
     <div class="ball-wrap"><div class="ball-3d"><div class="curve-l"></div><div class="curve-r"></div></div></div>
@@ -403,14 +403,14 @@
       <div class="text-3xl font-black">13 <span class="text-sm text-orange-300" style="letter-spacing:.2em">ANS</span></div>
     </div>
     <p class="sub anim-up" style="animation-delay:1.4s;">
-      Que cette nouvelle année t'apporte des paniers décisifs,<br>des fous rires inoubliables et plein de moments fiers.
+      Que cette nouvelle annÃ©e t'apporte des paniers dÃ©cisifs,<br>des fous rires inoubliables et plein de moments fiers.
     </p>
     <div id="finalRecap" class="recap anim-up" style="animation-delay:1.8s;">
-      <h3> Ton récap de champion</h3>
+      <h3> Ton rÃ©cap de champion</h3>
       <ul id="finalList"></ul>
     </div>
-    <button class="btn anim-up mt-3" style="animation-delay:2.2s;" onclick="downloadRecap()"> Télécharger mon récapitulatif</button>
-    <button class="btn anim-up mt-2" style="animation-delay:2.4s;background:rgba(255,255,255,.1);box-shadow:none;" onclick="location.reload()"> Recommencer l'expérience</button>
+    <button class="btn anim-up mt-3" style="animation-delay:2.2s;" onclick="downloadRecap()"> TÃ©lÃ©charger mon rÃ©capitulatif</button>
+    <button class="btn anim-up mt-2" style="animation-delay:2.4s;background:rgba(255,255,255,.1);box-shadow:none;" onclick="location.reload()"> Recommencer l'expÃ©rience</button>
   </div>
 </section>
 
@@ -529,7 +529,7 @@ function playBirthdayTune(){
 })();
 
 /* ============================================================
-   STEP 1 · WISH
+   STEP 1 Â· WISH
    ============================================================ */
 $('wishInput').addEventListener('input', e=>{
   $('wishCount').textContent = e.target.value.length;
@@ -541,7 +541,7 @@ function validateWish(){
   if(v.length < 2){
     const el = $('wishInput');
     el.classList.add('err'); setTimeout(()=>el.classList.remove('err'),400);
-    $('wishErr').textContent = "Il faut au moins une réponse ! Même « devenir champion de sieste » compte ";
+    $('wishErr').textContent = "Il faut au moins une rÃ©ponse ! MÃªme Â« devenir champion de sieste Â» compte ";
     $('wishErr').classList.add('show');
     return;
   }
@@ -552,22 +552,22 @@ function validateWish(){
 window.validateWish = validateWish;
 
 /* ============================================================
-   STEP 2 · QUALITIES
+   STEP 2 Â· QUALITIES
    ============================================================ */
 const QUALITIES = [
   ['','Intelligent'],
-  ['','Drôle'],
-  ['','Sympa… quand il le veut !'],
-  ['','Gentil… quand il s\'y met !'],
-  ['','Déterminé'],
-  ['','Généreux <span style="opacity:.6;font-size:.85em">(c\'est plus moi mais bon )</span>'],
-  ['','Bon sérieux'],
-  ['','Énergique'],
-  ['','Geek <span style="opacity:.75;font-size:.9em">(content de jouer à GTA )</span>'],
+  ['','DrÃ´le'],
+  ['','SympaÂ… quand il le veut !'],
+  ['','GentilÂ… quand il s\'y met !'],
+  ['','DÃ©terminÃ©'],
+  ['','GÃ©nÃ©reux <span style="opacity:.6;font-size:.85em">(c\'est plus moi mais bon )</span>'],
+  ['','Bon sÃ©rieux'],
+  ['','Ã‰nergique'],
+  ['','Geek <span style="opacity:.75;font-size:.9em">(content de jouer Ã  GTA )</span>'],
   ['','Amusant'],
   ['','Beau'],
   ['','<span class="strike">Magnifique</span> <span class="magnif">MAGNIFIAK</span>'],
-  ['','Unique — et c\'est sa plus grande force !'],
+  ['','Unique Â— et c\'est sa plus grande force !'],
 ];
 let qualTimers = [];
 function startQualities(){
@@ -593,18 +593,18 @@ function startQualities(){
 }
 
 /* ============================================================
-   STEP 3 · FLAWS
+   STEP 3 Â· FLAWS
    ============================================================ */
-const FORBIDDEN = ['aucun','aucune','rien','néant','neant','-','...','pas de défaut','pas de defaut','aucun défaut','aucun defaut','0','non'];
+const FORBIDDEN = ['aucun','aucune','rien','nÃ©ant','neant','-','...','pas de dÃ©faut','pas de defaut','aucun dÃ©faut','aucun defaut','0','non'];
 function validateFlaws(){
   ensureAudio();
   const inputs = [$('flaw1'),$('flaw2'),$('flaw3')];
   const vals = inputs.map(i=>i.value.trim());
   const norm = s => s.toLowerCase().replace(/[.!]/g,'').trim();
   let err = '';
-  if(vals.some(v=>v.length < 2)) err = "Les 3 défauts doivent être remplis ! ";
-  else if(vals.some(v=>FORBIDDEN.includes(norm(v)))) err = "Interdit de dire « aucun » !  Personne n'est parfait.";
-  else if(new Set(vals.map(v=>v.toLowerCase())).size !== 3) err = "Les 3 défauts doivent être différents ! Pas de copier-coller malin ";
+  if(vals.some(v=>v.length < 2)) err = "Les 3 dÃ©fauts doivent Ãªtre remplis ! ";
+  else if(vals.some(v=>FORBIDDEN.includes(norm(v)))) err = "Interdit de dire Â« aucun Â» !  Personne n'est parfait.";
+  else if(new Set(vals.map(v=>v.toLowerCase())).size !== 3) err = "Les 3 dÃ©fauts doivent Ãªtre diffÃ©rents ! Pas de copier-coller malin ";
   if(err){
     inputs.forEach(i=>{ i.classList.add('err'); setTimeout(()=>i.classList.remove('err'),400); });
     $('flawErr').textContent = err;
@@ -618,7 +618,7 @@ function validateFlaws(){
 window.validateFlaws = validateFlaws;
 
 /* ============================================================
-   STEP 4 & 5 · RATING GRIDS
+   STEP 4 & 5 Â· RATING GRIDS
    ============================================================ */
 function buildRatingGrid(containerId, btnId, key){
   const c = $(containerId); c.innerHTML = '';
@@ -651,8 +651,8 @@ document.querySelectorAll('.mode-option').forEach(button => button.addEventListe
     b.style.background = sel ? 'rgba(249,115,22,.18)' : 'rgba(255,255,255,.05)';
   });
   $('modeDescription').innerHTML = state.mode === 'guided'
-    ? 'Bleu : vol • orange : rebond • vert : panier. Visualise le tir avant de lâcher.<br>Tu pourras changer de mode <b>à tout moment</b> pendant la partie (bouton en bas à gauche ou touche G).'
-    : 'Aucun tracé : dose la puissance et vise à l\'instinct.<br>Tu pourras changer de mode <b>à tout moment</b> pendant la partie (bouton en bas à gauche ou touche G).';
+    ? 'Bleu : vol Â• orange : rebond Â• vert : panier. Visualise le tir avant de lÃ¢cher.<br>Tu pourras changer de mode <b>Ã  tout moment</b> pendant la partie (bouton en bas Ã  gauche ou touche G).'
+    : 'Aucun tracÃ© : dose la puissance et vise Ã  l\'instinct.<br>Tu pourras changer de mode <b>Ã  tout moment</b> pendant la partie (bouton en bas Ã  gauche ou touche G).';
   if(gameState === 'playing') setGameMode(state.mode);
   sfx.pop();
 }));
@@ -841,7 +841,7 @@ const impactMarkers = Array.from({ length: 12 }, () => {
 });
 
 /* ============================================================
-   ÉTAT DU JEU
+   Ã‰TAT DU JEU
    ============================================================ */
 const GOAL = 13;
 let gameState = 'idle';
@@ -991,10 +991,10 @@ function renderGuide(start, velocity, source=null){
   const names = { ground: 'sol', board: 'panneau', rim: 'arceau', pole: 'poteau' };
   const status = $('guideStatus');
   let message = 'Trajectoire sans contact';
-  if(source && source.scored) message = 'Panier marqué';
-  else if(sim.scored) message = hits.length ? 'Panier prévu avec rebond' : sim.touched ? 'Panier prévu avec contact' : 'Panier prévu : swish';
-  else if(hits.length) message = `Rebonds prévus : ${hits.map(hit=>names[hit]).join(', ')}`;
-  else if(sim.touched) message = 'Contact prévu avec le panier';
+  if(source && source.scored) message = 'Panier marquÃ©';
+  else if(sim.scored) message = hits.length ? 'Panier prÃ©vu avec rebond' : sim.touched ? 'Panier prÃ©vu avec contact' : 'Panier prÃ©vu : swish';
+  else if(hits.length) message = `Rebonds prÃ©vus : ${hits.map(hit=>names[hit]).join(', ')}`;
+  else if(sim.touched) message = 'Contact prÃ©vu avec le panier';
   if(status.textContent !== message) status.textContent = message;
   status.style.color = sim.scored ? '#86efac' : hits.length || sim.touched ? '#fdba74' : '#a5f3fc';
   status.classList.remove('hidden');
@@ -1099,7 +1099,7 @@ function onScore(){
   if(baskets >= GOAL){ endPending = true; setTimeout(finishGame, 1100); }
 }
 function endShot(){
-  if(!liveSim.scored){ shotsTaken++; streak = 0; sfx.miss(); popup('RATÉ','#f87171'); }
+  if(!liveSim.scored){ shotsTaken++; streak = 0; sfx.miss(); popup('RATÃ‰','#f87171'); }
   updateHUD();
   if(baskets >= GOAL) return;
   setTimeout(()=>{ if(gameState === 'playing') newPosition(); }, 500);
@@ -1114,8 +1114,8 @@ function finishGame(){
   state.gameResult = { realTime: elapsed, shots: shotsTaken, made: baskets, accuracy, skipped: false };
 
   $('resEmoji').textContent = '';
-  $('resTitle').textContent = 'DÉFI TERMINÉ !';
-  $('resSub').textContent = `13 paniers marqués — beau travail, Kehys !`;
+  $('resTitle').textContent = 'DÃ‰FI TERMINÃ‰ !';
+  $('resSub').textContent = `13 paniers marquÃ©s Â— beau travail, Kehys !`;
   $('resReal').textContent = `${elapsed.toFixed(1)} s`;
   $('resShots').textContent = `${shotsTaken} tirs`;
   $('resMade').textContent = `${baskets} / ${GOAL}`;
@@ -1124,10 +1124,10 @@ function finishGame(){
   const box = $('resBox');
   box.className = 'result-box';
   box.innerHTML = `
-    <p class="font-black text-xl"> ${accuracy >= 70 ? 'Quel adresse !' : accuracy >= 50 ? 'Beau tableau de chasse !' : 'Bravo pour la persévérance !'}</p>
+    <p class="font-black text-xl"> ${accuracy >= 70 ? 'Quel adresse !' : accuracy >= 50 ? 'Beau tableau de chasse !' : 'Bravo pour la persÃ©vÃ©rance !'}</p>
     <p class="text-sm text-slate-300 mt-1">
       ${accuracy >= 70 ? 'Tu as un vrai shoot de champion ' :
-        accuracy >= 50 ? 'Tu progresses, continue comme ça ' :
+        accuracy >= 50 ? 'Tu progresses, continue comme Ã§a ' :
         'Chaque panier compte, et tu les as tous mis '}
     </p>`;
 
@@ -1135,7 +1135,7 @@ function finishGame(){
   fireConfetti(true);
 }
 
-/*  SAUT DU JEU : le joueur peut passer à l'étape suivante à tout moment */
+/*  SAUT DU JEU : le joueur peut passer Ã  l'Ã©tape suivante Ã  tout moment */
 function skipGame(){
   if(gameState !== 'playing') return;
   state.skipped = true;
@@ -1144,9 +1144,9 @@ function skipGame(){
   hideGuide();
   clearTimeout(nextShotTimer); clearTimeout(hintTimer);
   sfx.click();
-  popup(' Jeu passé !', '#fde047');
+  popup(' Jeu passÃ© !', '#fde047');
   setTimeout(()=>{
-    // On passe directement à l'écran "BIRTHDAY 2" (étape suivante après le jeu)
+    // On passe directement Ã  l'Ã©cran "BIRTHDAY 2" (Ã©tape suivante aprÃ¨s le jeu)
     goTo('s-birthday2');
   }, 700);
 }
@@ -1155,12 +1155,12 @@ $('skipBtn').addEventListener('click', (e)=>{ e.stopPropagation(); skipGame(); }
 $('skipBtn').addEventListener('pointerdown', (e)=> e.stopPropagation());
 
 /* ============================================================
-   MODE DE JEU (bascule possible à tout moment)
+   MODE DE JEU (bascule possible Ã  tout moment)
    ============================================================ */
 function setGameMode(next){
   mode = next;
   const btn = $('modeToggle');
-  btn.textContent = mode === 'guided' ? 'Mode guidé : activé' : 'Mode normal : sans tracé';
+  btn.textContent = mode === 'guided' ? 'Mode guidÃ© : activÃ©' : 'Mode normal : sans tracÃ©';
   btn.setAttribute('aria-pressed', String(mode === 'guided'));
   if(mode === 'normal') hideGuide();
   else if(gameState === 'playing'){
@@ -1179,7 +1179,7 @@ document.addEventListener('keydown', e=>{
 });
 
 /* ============================================================
-   ENTRÉES
+   ENTRÃ‰ES
    ============================================================ */
 let dragging = false, sx = 0, sy = 0, power = 0, yaw = 0;
 let activePointer = null, hintTimer = null, acc = 0;
@@ -1209,7 +1209,7 @@ canvas.addEventListener('pointerup', release);
 canvas.addEventListener('pointercancel', e=> release(e, true));
 
 /* ============================================================
-   DÉMARRAGE DU JEU
+   DÃ‰MARRAGE DU JEU
    ============================================================ */
 function startBasketGame(){
   ensureAudio();
@@ -1288,25 +1288,25 @@ addEventListener('resize', ()=>{
 });
 
 /* ============================================================
-   RÉCAP FINAL
+   RÃ‰CAP FINAL
    ============================================================ */
 function buildFinalRecap(){
   const list = $('finalList');
   const items = [];
-  items.push(` <b>Ton objectif de l'année :</b> « ${state.wish} »`);
-  items.push(` <b>Tes 3 défauts assumés :</b> ${state.flaws.join(' · ')}`);
-  items.push(` <b>Comportement :</b> ${state.behavior}/10 ·  <b>Niveau basket :</b> ${state.basketLevel}/10`);
+  items.push(` <b>Ton objectif de l'annÃ©e :</b> Â« ${state.wish} Â»`);
+  items.push(` <b>Tes 3 dÃ©fauts assumÃ©s :</b> ${state.flaws.join(' Â· ')}`);
+  items.push(` <b>Comportement :</b> ${state.behavior}/10 Â·  <b>Niveau basket :</b> ${state.basketLevel}/10`);
   if(state.gameResult){
     const g = state.gameResult;
-    items.push(` <b>Défi 13 paniers :</b> ${g.realTime.toFixed(1)} s en ${g.shots} tirs (${g.accuracy} % de réussite)`);
+    items.push(` <b>DÃ©fi 13 paniers :</b> ${g.realTime.toFixed(1)} s en ${g.shots} tirs (${g.accuracy} % de rÃ©ussite)`);
   } else if(state.skipped){
-    items.push(` <b>Défi 13 paniers :</b> passé, on file à la suite !`);
+    items.push(` <b>DÃ©fi 13 paniers :</b> passÃ©, on file Ã  la suite !`);
   }
   list.innerHTML = items.map(t=>`<li>${t}</li>`).join('');
 }
 
 /* ============================================================
-   TÉLÉCHARGEMENT FORCÉ DU RÉCAPITULATIF
+   TÃ‰LÃ‰CHARGEMENT FORCÃ‰ DU RÃ‰CAPITULATIF
    ============================================================ */
 function downloadRecap(){
   sfx.click();
@@ -1317,43 +1317,43 @@ function downloadRecap(){
 
   const lines = [];
   lines.push('');
-  lines.push('    JOYEUX ANNIVERSAIRE KEHYS · 13 ANS ');
+  lines.push('    JOYEUX ANNIVERSAIRE KEHYS Â· 13 ANS ');
   lines.push('');
-  lines.push(`Fait le ${dateStr} à ${timeStr}`);
+  lines.push(`Fait le ${dateStr} Ã  ${timeStr}`);
   lines.push('');
-  lines.push(' TON OBJECTIF DE L\'ANNÉE ');
-  lines.push('« ' + state.wish + ' »');
+  lines.push(' TON OBJECTIF DE L\'ANNÃ‰E ');
+  lines.push('Â« ' + state.wish + ' Â»');
   lines.push('');
-  lines.push(' TES 3 DÉFAUTS ASSUMÉS ');
+  lines.push(' TES 3 DÃ‰FAUTS ASSUMÃ‰S ');
   state.flaws.forEach((f,i)=> lines.push(`${i+1}. ${f}`));
   lines.push('');
-  lines.push(' TES AUTO-ÉVALUATIONS ');
+  lines.push(' TES AUTO-Ã‰VALUATIONS ');
   lines.push(`Comportement : ${state.behavior}/10`);
   lines.push(`Niveau basket : ${state.basketLevel}/10`);
   lines.push('');
   if(g){
-    lines.push(' DÉFI DES 13 PANIERS ');
+    lines.push(' DÃ‰FI DES 13 PANIERS ');
     lines.push(`Temps total : ${g.realTime.toFixed(1)} s`);
-    lines.push(`Tirs tentés : ${g.shots}`);
-    lines.push(`Paniers marqués : ${g.made} / 13`);
-    lines.push(`Réussite : ${g.accuracy} %`);
+    lines.push(`Tirs tentÃ©s : ${g.shots}`);
+    lines.push(`Paniers marquÃ©s : ${g.made} / 13`);
+    lines.push(`RÃ©ussite : ${g.accuracy} %`);
     lines.push('');
     lines.push(g.accuracy >= 70 ? ' Quel adresse, futur MVP !' :
               g.accuracy >= 50 ? ' Beau tableau de chasse, continue !' :
-              ' Bravo pour la persévérance !');
+              ' Bravo pour la persÃ©vÃ©rance !');
   } else if(state.skipped){
-    lines.push(' DÉFI DES 13 PANIERS ');
-    lines.push('(Passé — étape sautée volontairement)');
+    lines.push(' DÃ‰FI DES 13 PANIERS ');
+    lines.push('(PassÃ© Â— Ã©tape sautÃ©e volontairement)');
   }
   lines.push('');
-  lines.push(' LES 13 QUALITÉS ');
-  const Q = ['Intelligent','Drôle','Sympa (quand il le veut !)','Gentil (quand il s\'y met !)',
-    'Déterminé','Généreux (c\'est plus moi mais bon )','Bon sérieux','Énergique',
-    'Geek (content de jouer à GTA )','Amusant','Beau','Magnifiak ','Unique — sa plus grande force !'];
+  lines.push(' LES 13 QUALITÃ‰S ');
+  const Q = ['Intelligent','DrÃ´le','Sympa (quand il le veut !)','Gentil (quand il s\'y met !)',
+    'DÃ©terminÃ©','GÃ©nÃ©reux (c\'est plus moi mais bon )','Bon sÃ©rieux','Ã‰nergique',
+    'Geek (content de jouer Ã  GTA )','Amusant','Beau','Magnifiak ','Unique Â— sa plus grande force !'];
   Q.forEach((q,i)=> lines.push(`${i+1}. ${q}`));
   lines.push('');
   lines.push('');
-  lines.push('   Que cette année soit pleine de paniers,');
+  lines.push('   Que cette annÃ©e soit pleine de paniers,');
   lines.push('     de rires et de moments inoubliables. ');
   lines.push('');
 
@@ -1368,13 +1368,13 @@ function downloadRecap(){
   document.body.removeChild(a);
   setTimeout(()=>URL.revokeObjectURL(url), 1500);
 
-  popup(' Récap téléchargé !', '#86efac');
+  popup(' RÃ©cap tÃ©lÃ©chargÃ© !', '#86efac');
   fireConfetti();
 }
 window.downloadRecap = downloadRecap;
 
 /* ============================================================
-   CLAVIER + DÉBLOCAGE AUDIO
+   CLAVIER + DÃ‰BLOCAGE AUDIO
    ============================================================ */
 document.addEventListener('keydown', e=>{
   if(e.key !== 'Enter') return;
